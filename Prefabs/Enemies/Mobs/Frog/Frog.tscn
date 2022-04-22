@@ -1,0 +1,54 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Prefabs/Enemies/Mobs/Frog/frog_leap.png" type="Texture" id=1]
+[ext_resource path="res://Prefabs/Enemies/Mobs/Frog/frog.png" type="Texture" id=2]
+[ext_resource path="res://Prefabs/Enemies/Mobs/Frog/Frog.gd" type="Script" id=3]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "leap",
+"speed": 5.0
+} ]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="AttackBody" type="KinematicBody2D" parent="."]
+collision_layer = 0
+collision_mask = 20
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackBody"]
+visible = false
+polygon = PoolVector2Array( 2, 5, 5, 3, 12, 9, 14, 20, 29, 20, 10, -1, 10, -12, -9, -25, -17, -25, -25, -19, -28, -11, -28, -2, -26, 0, -29, 5, -28, 7, -25, 7, -22, 3, -18, 6, -21, 9, -29, 17, -28, 20, -14, 20, -13, 7, -11, 19, -6, 19, 5, 19 )
+disabled = true
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="AttackBody"]
+frames = SubResource( 1 )
+playing = true
+
+[node name="AttackBox" type="Area2D" parent="AttackBody"]
+monitoring = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackBody/AttackBox"]
+polygon = PoolVector2Array( -29, -14, -32, -6, -29, 2, -32, 8, -27, 11, -22, 8, -22, 14, -16, 14, -11, 10, 3, 13, 5, 27, 12, 29, 16, 22, 23, 26, 31, 23, 30, 17, 13, -2, 12, -6 )
+
+[node name="DieBox" type="Area2D" parent="AttackBody"]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="AttackBody/DieBox"]
+polygon = PoolVector2Array( -29, -15, 12, -7, 12, -10, 10, -14, 5, -18, 3, -19, 2, -19, -8, -27, -16, -27, -21, -25, -25, -22 )
+
+[node name="AttackTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+autostart = true
+
+[connection signal="area_entered" from="AttackBody/AttackBox" to="." method="_on_AttackBox_area_entered"]
+[connection signal="area_entered" from="AttackBody/DieBox" to="." method="_on_DieBox_area_entered"]
+[connection signal="timeout" from="AttackTimer" to="." method="_on_AttackTimer_timeout"]

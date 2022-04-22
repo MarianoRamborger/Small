@@ -1,11 +1,14 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/Player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/TerrainHandler.gd" type="Script" id=3]
-[ext_resource path="res://Scenes/EraserArea.gd" type="Script" id=4]
+[ext_resource path="res://Scenes/Builders And Factories/WorldBuilder.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/Builders And Factories/EraserArea.gd" type="Script" id=4]
 [ext_resource path="res://Prefabs/UI/GameUI/GameUI.tscn" type="PackedScene" id=5]
-[ext_resource path="res://Scenes/GameManager.gd" type="Script" id=6]
+[ext_resource path="res://Scenes/Builders And Factories/GameManager.gd" type="Script" id=6]
+[ext_resource path="res://Prefabs/Items/Fuel/Fuel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Scenes/Builders And Factories/HazardsFactory.gd" type="Script" id=8]
+[ext_resource path="res://Scenes/Builders And Factories/ItemsFactory.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 358, 1431.5 )
@@ -39,12 +42,20 @@ position = Vector2( 1050, 0 )
 [node name="Player" parent="Player" instance=ExtResource( 2 )]
 position = Vector2( 27, -141 )
 
-[node name="TerrainHandler" type="Node2D" parent="."]
+[node name="WorldBuilder" type="Node2D" parent="."]
 script = ExtResource( 3 )
 
-[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="TerrainHandler"]
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="WorldBuilder"]
 position = Vector2( 1051, -1337 )
 scale = Vector2( 8.7, 142.4 )
+
+[node name="Factories" type="Node2D" parent="WorldBuilder"]
+
+[node name="HazardsFactory" type="Node2D" parent="WorldBuilder/Factories"]
+script = ExtResource( 8 )
+
+[node name="ItemsFactory" type="Node2D" parent="WorldBuilder/Factories"]
+script = ExtResource( 9 )
 
 [node name="TerrainEraser" type="Node2D" parent="."]
 
@@ -62,7 +73,12 @@ shape = SubResource( 1 )
 [node name="GameManager" type="Node2D" parent="." groups=["GameManager"]]
 script = ExtResource( 6 )
 
-[connection signal="screen_entered" from="TerrainHandler/VisibilityNotifier2D" to="TerrainHandler" method="_on_VisibilityNotifier2D_screen_entered"]
-[connection signal="screen_exited" from="TerrainHandler/VisibilityNotifier2D" to="TerrainHandler" method="_on_VisibilityNotifier2D_screen_exited"]
+[node name="Items" type="Node2D" parent="."]
+
+[node name="Fuel (Small)" parent="Items" instance=ExtResource( 7 )]
+position = Vector2( 914, -287 )
+
+[connection signal="screen_entered" from="WorldBuilder/VisibilityNotifier2D" to="WorldBuilder" method="_on_VisibilityNotifier2D_screen_entered"]
+[connection signal="screen_exited" from="WorldBuilder/VisibilityNotifier2D" to="WorldBuilder" method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="area_entered" from="TerrainEraser/EraserArea" to="TerrainEraser/EraserArea" method="_on_EraserArea_area_entered"]
 [connection signal="body_entered" from="TerrainEraser/EraserArea" to="TerrainEraser/EraserArea" method="_on_EraserArea_body_entered"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Prefabs/Enemies/Hazards/Rock/rock.png" type="Texture" id=1]
-[ext_resource path="res://Prefabs/Enemies/Hazards/Rock/Rock.gd" type="Script" id=2]
+[ext_resource path="res://Prefabs/Enemies/Hazards/ImmobileHazard.gd" type="Script" id=2]
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 34.2857, 19.8571 )

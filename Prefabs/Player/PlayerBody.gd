@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-export var SPEED = 300
+export var SPEED = 200
 export var GRAVITY = 20
 const WORLD_LIMIT = 10000 #BAJAR
 const UP = Vector2(0,-1)
@@ -53,8 +53,8 @@ func handle_movement():
 func on_floor_collision():
 	if is_on_floor():
 		jump_stamina = max_jump_stamina
-#		jetpack_stamina = max_jetpack_stamina
 		falling = false
+		$AnimatedSprite/Jetpack.play('off')
 
 func enforce_max_height():
 	if position.y < -500:
@@ -65,6 +65,7 @@ func jump():
 	if Input.is_action_just_released("Jump"):
 		falling = true
 		jump_stamina = 0
+		$AnimatedSprite/Jetpack.play('off')
 		
 	elif Input.is_action_pressed("Jump") and jump_stamina > 0:
 		position.y -= 5
@@ -72,6 +73,7 @@ func jump():
 		jump_stamina -= 25 
 		jumping = true
 		$AnimatedSprite.play('jump')
+		
 	
 	elif Input.is_action_pressed("Jump") and jetpack_stamina > 0 and falling:
 		position.y -= 5
@@ -79,6 +81,8 @@ func jump():
 		jetpack_stamina -= 1
 		jumping = true
 		$AnimatedSprite.play('jump')
+		$AnimatedSprite/Jetpack.play('on')
+		
 
-func hurt():
-		hp -= 25
+
+	

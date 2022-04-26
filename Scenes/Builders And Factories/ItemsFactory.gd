@@ -14,7 +14,7 @@ func _ready():
 
 func spawn(newTile, type = "Air"):
 
-	if tiles_since_last_item > 0 :
+	if true :
 		var maybeItem = rng.randi_range(
 			1 + tiles_since_last_item, 25)
 		if maybeItem > 10:

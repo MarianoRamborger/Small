@@ -11,3 +11,6 @@ func _on_Area2D_area_entered(area):
 func _on_PointsArea_area_entered(area):
 	if area.name == "Player_Hitbox":
 		get_tree().call_group("GameManager", "score_up", points  )
+
+func Despawn():
+	queue_free()

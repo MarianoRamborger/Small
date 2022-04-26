@@ -15,6 +15,13 @@ func hurt(dmg = 25):
 			parent.position.y -= 20
 			parent.move_and_slide(parent.motion,parent.UP)
 			
+
+func enemy_slain(points = 25):
+			parent.motion.y = -300
+			parent.position.y -= 20
+			parent.move_and_slide(parent.motion,parent.UP)
+			get_tree().call_group("GameManager", "score_up", points)
+	
 		
 func update_fuel(fuel = 25):
 		parent.jetpack_stamina += fuel

@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
-export var SPEED = 200
+export var SPEED = 225
+export var SPEED_DIF_MOD = 0
 export var GRAVITY = 20
 const WORLD_LIMIT = 10000 #BAJAR
 const UP = Vector2(0,-1)
@@ -20,12 +21,13 @@ var jumping = false
 var jetpack_boost_speed = 0
 var boosting = false
 
+
 func _ready():
 	$AnimatedSprite.play('default')
 
 	
 func _physics_process(delta):
-	motion.x = SPEED + jetpack_boost_speed 
+	motion.x = (SPEED + SPEED_DIF_MOD) + jetpack_boost_speed 
 	apply_gravity()
 	handle_movement()
 	jump()
@@ -35,6 +37,7 @@ func _physics_process(delta):
 	on_floor_collision()
 	get_tree().call_group("Game_UI", "update_ui", hp, jetpack_stamina)
 	enforce_max_height()
+	
 
 
 
@@ -106,6 +109,13 @@ func set_jetpack_boost():
 			$AnimatedSprite/Jetpack/JetpackAnimation.play("jetpack_boost")
 			motion.y = -300
 			jetpack_boost_speed = 150
+	elif Input.is_action_just_pressed("Left") and jetpack_stamina >= 25:
+			update_jetpack_stamina(-50)
+			boosting = true
+			$AnimatedSprite/Jetpack/JetpackAnimation.play("jetpack_boost_left")
+			motion.y = -300
+			jetpack_boost_speed = -SPEED + -SPEED_DIF_MOD + -100
+
 		
 		
 func end_jetpack_boost():
@@ -113,3 +123,7 @@ func end_jetpack_boost():
 	boosting = false
 	jetpack_boost_speed = 0
 	
+
+func increase_difficulty():
+	if SPEED_DIF_MOD < 300:
+		SPEED_DIF_MOD += 10

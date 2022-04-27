@@ -10,6 +10,7 @@ func picked_up():
 
 func _on_Fuel_Small_area_entered(area):
 	if area.name == "Player_Hitbox":
+		$FuelUp.play()
 		area.update_fuel(25)
 		play_pickup_animation()
 		get_tree().call_group("GameManager", "score_up", 5)

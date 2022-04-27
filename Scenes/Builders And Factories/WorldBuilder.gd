@@ -46,7 +46,7 @@ func create_terrain():
 
 	var chance = rng.randi_range(0,difficulty_level)
 
-	print(chance)
+
 	if chance == 0:
 		Spawners[1].spawn(newTile, "Ground", difficulty_level)
 	if chance == 1:

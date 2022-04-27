@@ -6,5 +6,4 @@ func _ready():
 
 
 func Despawn():
-	print("Despawning")
 	queue_free()

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/snakeLava_ani.png-2b9ccac98a73ff3e4d47dd1921ea1e09.stex"
+path="res://.import/pointy_mountains.png-d9dab52ff0301fdf0c4abfe16d9a55a8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Prefabs/snakeLava_ani.png"
-dest_files=[ "res://.import/snakeLava_ani.png-2b9ccac98a73ff3e4d47dd1921ea1e09.stex" ]
+source_file="res://Scenes/Background/Images/pointy_mountains.png"
+dest_files=[ "res://.import/pointy_mountains.png-d9dab52ff0301fdf0c4abfe16d9a55a8.stex" ]
 
 [params]
 

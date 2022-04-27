@@ -9,11 +9,14 @@ func hurt(dmg = 25):
 			parent.hp -= dmg
 			set_invincibility()
 			$InvincibilityTimer.start()
+			$AudioPain.play()
 			parent.hurting = true
 			playerAnimation.play("invincible")
 			parent.motion.y = -400
 			parent.position.y -= 20
 			parent.move_and_slide(parent.motion,parent.UP)
+			if parent.hp <= 0:
+				get_tree().change_scene("res://Prefabs/UI/StartMenu/StartMenu.tscn")
 			
 
 func enemy_slain(points = 25):
@@ -21,6 +24,7 @@ func enemy_slain(points = 25):
 			parent.position.y -= 20
 			parent.move_and_slide(parent.motion,parent.UP)
 			get_tree().call_group("GameManager", "score_up", points)
+			$AudioJumpKill.play()
 	
 		
 func update_fuel(fuel = 25):

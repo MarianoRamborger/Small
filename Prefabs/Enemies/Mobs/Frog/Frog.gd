@@ -56,5 +56,4 @@ func _on_AttackBox_area_entered(area):
 
 	
 func Despawn():
-	print("should despawn")
 	get_parent().queue_free()

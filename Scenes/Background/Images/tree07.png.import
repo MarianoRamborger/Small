@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/snakeLava.png-5b2b4439b36b4849b997aa25cb4c8a92.stex"
+path="res://.import/tree07.png-19aa241191e91b975ad462958a13cadc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Prefabs/snakeLava.png"
-dest_files=[ "res://.import/snakeLava.png-5b2b4439b36b4849b997aa25cb4c8a92.stex" ]
+source_file="res://Scenes/Background/Images/tree07.png"
+dest_files=[ "res://.import/tree07.png-19aa241191e91b975ad462958a13cadc.stex" ]
 
 [params]
 

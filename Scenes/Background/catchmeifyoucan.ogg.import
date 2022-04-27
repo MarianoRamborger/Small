@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/catchmeifyoucan.ogg-b56c865e1889de377469fe32ada51da5.oggstr"
+
+[deps]
+
+source_file="res://Scenes/Background/catchmeifyoucan.ogg"
+dest_files=[ "res://.import/catchmeifyoucan.ogg-b56c865e1889de377469fe32ada51da5.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

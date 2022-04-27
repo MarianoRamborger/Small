@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Prefabs/Items/Fuel/gemGreen.png" type="Texture" id=1]
 [ext_resource path="res://Prefabs/Items/Fuel/star_04.png" type="Texture" id=2]
 [ext_resource path="res://Prefabs/Items/Fuel/Fuel.gd" type="Script" id=3]
+[ext_resource path="res://Prefabs/Items/Fuel/fuel_up.wav" type="AudioStream" id=4]
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -123,5 +124,9 @@ texture = ExtResource( 2 )
 autoplay = "Default"
 anims/Default = SubResource( 4 )
 anims/picked_up = SubResource( 5 )
+
+[node name="FuelUp" type="AudioStreamPlayer2D" parent="Fuel (Small)"]
+stream = ExtResource( 4 )
+volume_db = 5.0
 
 [connection signal="area_entered" from="Fuel (Small)" to="Fuel (Small)" method="_on_Fuel_Small_area_entered"]

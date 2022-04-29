@@ -15,8 +15,24 @@ func hurt(dmg = 25):
 			parent.motion.y = -400
 			parent.position.y -= 20
 			parent.move_and_slide(parent.motion,parent.UP)
-			if parent.hp <= 0:
-				get_tree().change_scene("res://Prefabs/UI/StartMenu/StartMenu.tscn")
+#			if parent.hp <= 0:
+#				get_tree().change_scene("res://Prefabs/UI/StartMenu/StartMenu.tscn")
+			
+
+# Like hurt but for spikes and stuff that NEEDS to reposition you even if invincible
+func hurt_and_or_move(dmg = 0, moveY = 0, moveX = 0):
+		if !invincible and dmg > 0:
+			parent.hp -= dmg
+			set_invincibility()
+			$InvincibilityTimer.start()
+			parent.hurting = true
+			playerAnimation.play("invincible")
+#			if parent.hp <= 0:
+#			get_tree().change_scene("res://Prefabs/UI/StartMenu/StartMenu.tscn")
+		$AudioPain.play()
+		parent.motion.y = moveY
+		parent.motion.x += moveX
+		parent.move_and_slide(parent.motion,parent.UP)
 			
 
 func enemy_slain(points = 25):

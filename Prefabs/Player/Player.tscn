@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=2]
+[gd_scene load_steps=35 format=2]
 
 [ext_resource path="res://Prefabs/Player/Sprites/p1_stand.png" type="Texture" id=1]
 [ext_resource path="res://Prefabs/Player/Sprites/walk/p1_walk01.png" type="Texture" id=2]
@@ -16,18 +16,19 @@
 [ext_resource path="res://Prefabs/Player/Sprites/jetpack/tochLit2.png" type="Texture" id=14]
 [ext_resource path="res://Prefabs/Player/Sprites/jetpack/tochLit.png" type="Texture" id=15]
 [ext_resource path="res://Prefabs/Player/Sprites/p1_hurt.png" type="Texture" id=16]
-[ext_resource path="res://Scenes/Background/Images/sky.png" type="Texture" id=17]
-[ext_resource path="res://Scenes/Background/Images/mountain1.png" type="Texture" id=18]
-[ext_resource path="res://Scenes/Background/Images/mountain2.png" type="Texture" id=19]
-[ext_resource path="res://Scenes/Background/Images/mountain3.png" type="Texture" id=20]
-[ext_resource path="res://Scenes/Background/Images/castle_wall.png" type="Texture" id=21]
-[ext_resource path="res://Scenes/Background/Images/castle.png" type="Texture" id=22]
+[ext_resource path="res://Scenes/Background/SpaceBackground/backmost.png" type="Texture" id=17]
+[ext_resource path="res://Scenes/Background/SpaceBackground/bd_space_seamless_fl1.png" type="Texture" id=18]
 [ext_resource path="res://Prefabs/Player/Sounds/Jump.wav" type="AudioStream" id=23]
 [ext_resource path="res://Prefabs/Player/Sounds/Jetpack.wav" type="AudioStream" id=24]
 [ext_resource path="res://Prefabs/Player/Sounds/JumpKill.wav" type="AudioStream" id=25]
-[ext_resource path="res://Scenes/Background/Images/tree02.png" type="Texture" id=26]
 [ext_resource path="res://Prefabs/Player/Sounds/Hurt.wav" type="AudioStream" id=27]
 [ext_resource path="res://Prefabs/Player/Sounds/Boost.wav" type="AudioStream" id=28]
+[ext_resource path="res://Shaders/Clunkyshader.tres" type="Shader" id=29]
+
+[sub_resource type="ShaderMaterial" id=10]
+shader = ExtResource( 29 )
+shader_param/line_color = Color( 0, 0, 0, 1 )
+shader_param/line_thickness = 1.0
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -54,15 +55,15 @@ animations = [ {
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 13 ) ],
-"loop": true,
-"name": "off",
-"speed": 5.0
-}, {
 "frames": [ ExtResource( 15 ), ExtResource( 14 ) ],
 "loop": true,
 "name": "on",
 "speed": 10.0
+}, {
+"frames": [ ExtResource( 13 ) ],
+"loop": true,
+"name": "off",
+"speed": 5.0
 } ]
 
 [sub_resource type="Animation" id=5]
@@ -200,15 +201,18 @@ script = ExtResource( 11 )
 SPEED = 100
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+material = SubResource( 10 )
 frames = SubResource( 1 )
 playing = true
 
 [node name="Jetpack" type="AnimatedSprite" parent="AnimatedSprite"]
 show_behind_parent = true
+use_parent_material = true
 position = Vector2( -23, 16 )
 rotation = 0.436332
 frames = SubResource( 4 )
 animation = "on"
+frame = 1
 playing = true
 flip_v = true
 
@@ -224,13 +228,13 @@ anims/default = SubResource( 7 )
 anims/invincible = SubResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 192, -3 )
 offset = Vector2( 400, 0 )
 current = true
-zoom = Vector2( 1.3, 1.3 )
+zoom = Vector2( 1.4, 1.4 )
 limit_left = -100000
 limit_bottom = 65
 drag_margin_h_enabled = true
@@ -238,95 +242,44 @@ drag_margin_v_enabled = true
 drag_margin_top = 1.0
 
 [node name="ParallaxBackground" type="ParallaxBackground" parent="Camera2D"]
+scroll_ignore_camera_zoom = true
 
 [node name="Sky" type="ParallaxLayer" parent="Camera2D/ParallaxBackground"]
-scale = Vector2( 2, 2 )
-motion_scale = Vector2( 0, 1 )
+position = Vector2( 100, 0 )
+motion_scale = Vector2( 0.2, 0 )
+motion_mirroring = Vector2( 1440, 810 )
+__meta__ = {
+"_editor_description_": "ALL SPRITES dentro de parallax should have \"centered\" off. ALL OF THEM
+
+Also check las imagenes en import, particularly the repeating, should be enabled"
+}
 
 [node name="Skybox" type="Sprite" parent="Camera2D/ParallaxBackground/Sky"]
 modulate = Color( 0.984314, 0.976471, 0.890196, 1 )
-position = Vector2( 586, -564 )
-scale = Vector2( 2.49512, 1.22559 )
+scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 17 )
+centered = false
+offset = Vector2( 0, 120 )
+region_enabled = true
+region_rect = Rect2( 0, 0, 1440, 810 )
 
-[node name="CastleWall" type="ParallaxLayer" parent="Camera2D/ParallaxBackground"]
-position = Vector2( 15000, 0 )
-motion_mirroring = Vector2( 40000, 0 )
+[node name="Stars" type="ParallaxLayer" parent="Camera2D/ParallaxBackground"]
+position = Vector2( 100, 0 )
+motion_scale = Vector2( 0.2, 0 )
+motion_mirroring = Vector2( 1440, 810 )
+__meta__ = {
+"_editor_description_": "ALL SPRITES dentro de parallax should have \"centered\" off. ALL OF THEM
 
-[node name="CastleWall" type="Sprite" parent="Camera2D/ParallaxBackground/CastleWall"]
-modulate = Color( 0.886275, 0.882353, 0.815686, 1 )
-position = Vector2( 1432, -128 )
-scale = Vector2( 2.49512, 1.22559 )
-texture = ExtResource( 21 )
+Also check las imagenes en import, particularly the repeating, should be enabled"
+}
 
-[node name="CastleWall2" type="Sprite" parent="Camera2D/ParallaxBackground/CastleWall"]
-modulate = Color( 0.886275, 0.882353, 0.815686, 1 )
-position = Vector2( 2070, -125 )
-scale = Vector2( 2.49512, 1.22559 )
-texture = ExtResource( 21 )
-
-[node name="CastleWall3" type="Sprite" parent="Camera2D/ParallaxBackground/CastleWall"]
-modulate = Color( 0.886275, 0.882353, 0.815686, 1 )
-position = Vector2( 2600, -125 )
-scale = Vector2( 2.49512, 1.22559 )
-texture = ExtResource( 21 )
-
-[node name="Castle" type="Sprite" parent="Camera2D/ParallaxBackground/CastleWall"]
-modulate = Color( 0.886275, 0.882353, 0.815686, 1 )
-position = Vector2( 2060, -267 )
-scale = Vector2( 2.49512, 1.22559 )
-texture = ExtResource( 22 )
-
-[node name="Mountain" type="ParallaxLayer" parent="Camera2D/ParallaxBackground"]
-position = Vector2( 3000, -5 )
-motion_scale = Vector2( 1.2, 1 )
-motion_mirroring = Vector2( 20000, 0 )
-
-[node name="Mountain" type="Sprite" parent="Camera2D/ParallaxBackground/Mountain"]
-modulate = Color( 0.905882, 0.898039, 0.823529, 1 )
-position = Vector2( 830.314, -301.405 )
-scale = Vector2( 1.7015, 1.65748 )
+[node name="Stars" type="Sprite" parent="Camera2D/ParallaxBackground/Stars"]
+modulate = Color( 0.984314, 0.976471, 0.890196, 1 )
+scale = Vector2( 1.5, 1.5 )
 texture = ExtResource( 18 )
-
-[node name="Mountain2" type="Sprite" parent="Camera2D/ParallaxBackground/Mountain"]
-modulate = Color( 0.905882, 0.898039, 0.823529, 1 )
-position = Vector2( 381, -250 )
-scale = Vector2( 1.7015, 1.65748 )
-texture = ExtResource( 19 )
-
-[node name="Mountain3" type="Sprite" parent="Camera2D/ParallaxBackground/Mountain"]
-modulate = Color( 0.905882, 0.898039, 0.823529, 1 )
-position = Vector2( 608, -373 )
-scale = Vector2( 1.7015, 1.65748 )
-texture = ExtResource( 20 )
-
-[node name="Forest" type="ParallaxLayer" parent="Camera2D/ParallaxBackground"]
-position = Vector2( 3000, -5 )
-motion_mirroring = Vector2( 20000, 0 )
-
-[node name="Tree1" type="Sprite" parent="Camera2D/ParallaxBackground/Forest"]
-modulate = Color( 0.905882, 0.898039, 0.823529, 1 )
-position = Vector2( 301, 0 )
-scale = Vector2( 1.03044, 1.02439 )
-texture = ExtResource( 26 )
-
-[node name="Tree2" type="Sprite" parent="Camera2D/ParallaxBackground/Forest"]
-modulate = Color( 0.905882, 0.898039, 0.823529, 1 )
-position = Vector2( 492, 0 )
-scale = Vector2( 1.03044, 1.02439 )
-texture = ExtResource( 26 )
-
-[node name="Tree3" type="Sprite" parent="Camera2D/ParallaxBackground/Forest"]
-modulate = Color( 0.905882, 0.898039, 0.823529, 1 )
-position = Vector2( -133, 0 )
-scale = Vector2( 1.03044, 1.02439 )
-texture = ExtResource( 26 )
-
-[node name="Tree4" type="Sprite" parent="Camera2D/ParallaxBackground/Forest"]
-modulate = Color( 0.905882, 0.898039, 0.823529, 1 )
-position = Vector2( 70, 0 )
-scale = Vector2( 1.03044, 1.02439 )
-texture = ExtResource( 26 )
+centered = false
+offset = Vector2( 0, 120 )
+region_rect = Rect2( 0, 0, 1440, 810 )
 
 [node name="Player_Hitbox" type="Area2D" parent="."]
 collision_mask = 6

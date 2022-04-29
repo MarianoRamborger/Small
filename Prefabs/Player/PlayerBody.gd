@@ -16,6 +16,7 @@ export var max_jump_stamina = 75
 
 export var jetpack_stamina = 500
 export var max_jetpack_stamina = 500
+var jetpack_started = false
 var falling =  false
 var jumping = false
 var jetpack_boost_speed = 0
@@ -42,10 +43,12 @@ func _physics_process(delta):
 
 
 func apply_gravity():
+	if !boosting:
 		if !is_on_floor():
 			motion.y += GRAVITY
 		else:
 			motion.y = GRAVITY
+
 			
 
 func animate():
@@ -64,40 +67,26 @@ func on_floor_collision():
 		$AnimatedSprite/Jetpack.play('off')
 
 func enforce_max_height():
-	if position.y < -500:
-		position.y = -500
+	if position.y < -800:
+		position.y = -800
 
 #Jump gradual, mario-like
 func jump():
 	if !boosting:
 		if Input.is_action_just_released("Jump"):
-			falling = true
-			jump_stamina = 0
-			$AnimatedSprite/Jetpack.play('off')
-			$AudioJetpack.stop()
+			jump_fall()
 			
 		elif Input.is_action_pressed("Jump") and jump_stamina > 0:
-			position.y -= 5
-			motion.y -= 150
-			jump_stamina -= 25 
-			jumping = true
-			$AnimatedSprite.play('jump')
-			$AudioJump.play()
+			jump_normal()
 			
 		
 		elif Input.is_action_pressed("Jump") and jetpack_stamina > 0 and falling:
-			position.y -= 5
-			motion.y -=  21
-			update_jetpack_stamina(-1)
-			jumping = true
-			$AnimatedSprite.play('jump')
-			$AnimatedSprite/Jetpack.play('on')
-			if !$AudioJetpack.playing:
-				$AudioJetpack.play()
+			jump_jetpack()
 				
 		
 		elif jump_stamina <= 0:
 			$AudioJetpack.stop()
+			jetpack_started = false
 		
 		
 
@@ -110,24 +99,62 @@ func update_jetpack_stamina(change):
 	jetpack_stamina = newStamina
 	
 
+func jump_normal():
+#		NO BORRAR NO BORRAR NO BORRAR
+		#SALTO SENSIBLE
+#		position.y -= 5 if is_on_floor() else 0
+#		motion.y -= 150
+#		jump_stamina -= 25
+		#SALTO NO-SENSIBLE
+		motion.y -= 450 if is_on_floor() else 0 
+		position.y -= 5
+		jump_stamina -= 25 
+		jumping = true
+		$AnimatedSprite.play('jump')
+		$AudioJump.play()
+	
+func jump_jetpack():
+		$AudioJetpack.play()
+		position.y -= 5
+		if jetpack_started:
+			motion.y -= 18
+			update_jetpack_stamina(-1)
+			if !$AudioJetpack.playing:
+				$AudioJetpack.play()
+		else:
+			motion.y = -50
+			jetpack_started = true
+			update_jetpack_stamina(-3)
+			$AudioBoost.play()
+			
+		jumping = true
+		$AnimatedSprite.play('jump')
+		$AnimatedSprite/Jetpack.play('on')
+
+func jump_fall():
+			falling = true
+			jump_stamina = 0
+			$AnimatedSprite/Jetpack.play('off')
+			$AudioJetpack.stop()
+			jetpack_started = false
+
 func set_jetpack_boost():
 	if Input.is_action_just_pressed("Right") and jetpack_stamina >= 25:
 			update_jetpack_stamina(-50)
 			boosting = true
 			$AnimatedSprite/Jetpack/JetpackAnimation.play("jetpack_boost")
-			motion.y = -300
-			jetpack_boost_speed = 150
+			motion.y = 0
+			jetpack_boost_speed = 200
 			$AudioBoost.play()
+			
 	elif Input.is_action_just_pressed("Left") and jetpack_stamina >= 25:
 			update_jetpack_stamina(-50)
 			boosting = true
 			$AnimatedSprite/Jetpack/JetpackAnimation.play("jetpack_boost_left")
-			motion.y = -300
-			jetpack_boost_speed = -SPEED + -SPEED_DIF_MOD + -150
+			motion.y = 0
+			jetpack_boost_speed = -SPEED + -SPEED_DIF_MOD + -200
 			$AudioBoost.play()
 
-		
-		
 func end_jetpack_boost():
 	$AnimatedSprite/Jetpack/JetpackAnimation.play("default")
 	boosting = false
@@ -135,5 +162,5 @@ func end_jetpack_boost():
 	
 
 func increase_difficulty():
-	if SPEED_DIF_MOD < 300:
+	if SPEED_DIF_MOD < 400:
 		SPEED_DIF_MOD += 10

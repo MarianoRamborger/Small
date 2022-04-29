@@ -16,6 +16,7 @@ var rng = RandomNumberGenerator.new()
 var difficulty_level = 1
 
 
+
 func _ready():
 	pass # Replace with function body.
 	rng.randomize()
@@ -32,7 +33,6 @@ func _on_VisibilityNotifier2D_screen_entered():
 	canCreate = true
 
 func increase_difficulty():
-	if difficulty_level < 6:
 		difficulty_level += 1
 
 func create_terrain():
@@ -44,7 +44,7 @@ func create_terrain():
 	#NORMAL ROUND
 	Spawners[0].spawn(newTile, "Ground")
 
-	var chance = rng.randi_range(0,difficulty_level)
+	var chance = clamp(rng.randi_range(0,difficulty_level), 0, 6)
 
 
 	if chance == 0:

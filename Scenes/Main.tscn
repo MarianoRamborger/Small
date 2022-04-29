@@ -1,8 +1,8 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Prefabs/Player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Scenes/Builders And Factories/WorldBuilder.gd" type="Script" id=3]
+[ext_resource path="res://Scenes/WorldBuilder(SetPieces).gd" type="Script" id=3]
 [ext_resource path="res://Scenes/Helpers and Managers/EraserArea.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Prefabs/UI/GameUI/GameUI.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Scenes/Builders And Factories/GameManager.gd" type="Script" id=6]
@@ -13,6 +13,7 @@
 [ext_resource path="res://Prefabs/Enemies/Mobs/Fly/Fly.tscn" type="PackedScene" id=11]
 [ext_resource path="res://Scenes/Builders And Factories/EnemiesFactory.gd" type="Script" id=12]
 [ext_resource path="res://Scenes/Background/catchmeifyoucan.ogg" type="AudioStream" id=13]
+[ext_resource path="res://Scenes/Builders And Factories/BlockFactory.gd" type="Script" id=14]
 
 [node name="Level" type="Node2D"]
 
@@ -66,14 +67,14 @@ position = Vector2( 1050, 0 )
 
 [node name="Player" parent="Player" instance=ExtResource( 2 )]
 position = Vector2( 179, -131 )
-SPEED = 235
+SPEED = 300
 
 [node name="WorldBuilder" type="Node2D" parent="." groups=["Difficulty"]]
 script = ExtResource( 3 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="WorldBuilder"]
-position = Vector2( 612, -1337 )
-scale = Vector2( 52.6, 142.4 )
+position = Vector2( 612, -2382.5 )
+scale = Vector2( 52.6, 246.95 )
 
 [node name="Factories" type="Node2D" parent="WorldBuilder"]
 
@@ -86,10 +87,14 @@ script = ExtResource( 9 )
 [node name="EnemiesFactory" type="Node2D" parent="WorldBuilder/Factories"]
 script = ExtResource( 12 )
 
+[node name="BlocksFactory" type="Node2D" parent="WorldBuilder/Factories"]
+script = ExtResource( 14 )
+
 [node name="TerrainEraser" type="Node2D" parent="."]
 position = Vector2( -1232, 53 )
 
 [node name="EraserArea" parent="TerrainEraser" instance=ExtResource( 4 )]
+position = Vector2( -788, -6 )
 
 [node name="UI" type="Node2D" parent="."]
 

@@ -13,7 +13,8 @@ func _ready():
 
 
 func spawn(newTile, type = "Air"):
-
+	
+	#Armar trail
 	if true :
 		var maybeItem = rng.randi_range(
 			1 + tiles_since_last_item, 25)

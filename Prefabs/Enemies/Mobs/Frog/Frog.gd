@@ -49,7 +49,7 @@ func _on_DieBox_area_entered(area):
 
 func _on_AttackBox_area_entered(area):
 	if !dead and area.name == "Player_Hitbox":
-		area.hurt(40)
+		area.hurt(25)
 		attackedSuccessfully = true
 
 

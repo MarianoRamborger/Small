@@ -23,7 +23,7 @@ func spawn(newTile, type = "Air"):
 			var newItem = fuel.instance()
 			newTile.add_child(newItem)
 			newItem.position.y = rng.randi_range(-100,-225)
-			newItem.scale.x = 0.3
-			newItem.scale.y = 0.3
+			newItem.scale.x = 0.8
+			newItem.scale.y = 0.8
 	else:
 		tiles_since_last_item += 1

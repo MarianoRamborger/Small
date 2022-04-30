@@ -8,15 +8,22 @@
 
 [node name="2Basic" type="Node2D"]
 script = ExtResource( 4 )
-total_lenght = 350
+hazard0RandomizerX = 50
+total_lenght = 700
 
 [node name="Floor" parent="." instance=ExtResource( 3 )]
 
 [node name="Floor2" parent="." instance=ExtResource( 3 )]
 position = Vector2( 175, 0 )
 
+[node name="Floor4" parent="." instance=ExtResource( 3 )]
+position = Vector2( 350, 0 )
+
+[node name="Floor5" parent="." instance=ExtResource( 3 )]
+position = Vector2( 525, 0 )
+
 [node name="UpFloor0" parent="." instance=ExtResource( 3 )]
-position = Vector2( 0, -375 )
+position = Vector2( 175, -375 )
 scale = Vector2( 2.5, 1.5 )
 
 [node name="Spikes" parent="UpFloor0" instance=ExtResource( 5 )]
@@ -30,14 +37,14 @@ rotation = -1.5708
 scale = Vector2( 0.5, 0.5 )
 
 [node name="UpFloor1" parent="." instance=ExtResource( 3 )]
-position = Vector2( 175, -375 )
+position = Vector2( 350, -375 )
 scale = Vector2( 2.5, 1.5 )
 
-[node name="Hazard0" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, -116 )
+[node name="Hazard3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 304, -116 )
 
 [node name="Hazard2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 119, -116 )
+position = Vector2( 150, -116 )
 
-[node name="Hazard1" parent="." instance=ExtResource( 1 )]
-position = Vector2( -27, -456 )
+[node name="Hazard0" parent="." instance=ExtResource( 1 )]
+position = Vector2( 223, -455 )

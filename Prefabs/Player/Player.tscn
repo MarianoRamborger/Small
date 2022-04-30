@@ -37,6 +37,11 @@ animations = [ {
 "name": "default",
 "speed": 5.0
 }, {
+"frames": [ ExtResource( 2 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 5 ) ],
+"loop": true,
+"name": "run",
+"speed": 30.0
+}, {
 "frames": [ ExtResource( 16 ) ],
 "loop": true,
 "name": "hurt",
@@ -46,24 +51,19 @@ animations = [ {
 "loop": true,
 "name": "jump",
 "speed": 5.0
-}, {
-"frames": [ ExtResource( 2 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 3 ), ExtResource( 6 ), ExtResource( 9 ), ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": true,
-"name": "run",
-"speed": 30.0
 } ]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
-"frames": [ ExtResource( 15 ), ExtResource( 14 ) ],
-"loop": true,
-"name": "on",
-"speed": 10.0
-}, {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
 "name": "off",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 15 ), ExtResource( 14 ) ],
+"loop": true,
+"name": "on",
+"speed": 10.0
 } ]
 
 [sub_resource type="Animation" id=5]
@@ -198,7 +198,7 @@ radius = 37.0
 position = Vector2( 2, 0 )
 collision_mask = 6
 script = ExtResource( 11 )
-SPEED = 100
+SPEED = 200
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 material = SubResource( 10 )
@@ -212,7 +212,6 @@ position = Vector2( -23, 16 )
 rotation = 0.436332
 frames = SubResource( 4 )
 animation = "on"
-frame = 1
 playing = true
 flip_v = true
 
@@ -222,6 +221,9 @@ autoplay = "default"
 anims/default = SubResource( 5 )
 anims/jetpack_boost = SubResource( 6 )
 anims/jetpack_boost_left = SubResource( 9 )
+
+[node name="Jetpack_recharge_timer" type="Timer" parent="AnimatedSprite/Jetpack"]
+wait_time = 2.5
 
 [node name="PlayerAnimation" type="AnimationPlayer" parent="AnimatedSprite"]
 anims/default = SubResource( 7 )
@@ -308,4 +310,5 @@ volume_db = -10.0
 [node name="AudioBoost" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 28 )
 
+[connection signal="timeout" from="AnimatedSprite/Jetpack/Jetpack_recharge_timer" to="." method="_on_Jetpack_recharge_timer_timeout"]
 [connection signal="timeout" from="Player_Hitbox/InvincibilityTimer" to="Player_Hitbox" method="_on_InvincibilityTimer_timeout"]

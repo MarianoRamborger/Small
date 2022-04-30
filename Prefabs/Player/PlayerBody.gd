@@ -22,6 +22,10 @@ var jumping = false
 var jetpack_boost_speed = 0
 var boosting = false
 
+var jetpack_recharge_left = 50
+var started_jetpack_recharge = false
+var recharging_jetpack = false
+
 
 func _ready():
 	$AnimatedSprite.play('default')
@@ -29,6 +33,9 @@ func _ready():
 	
 func _physics_process(delta):
 	motion.x = (SPEED + SPEED_DIF_MOD) + jetpack_boost_speed 
+	check_jetpack_stamina_recharger()
+	if recharging_jetpack:
+		recharge_jetpack()
 	apply_gravity()
 	handle_movement()
 	jump()
@@ -102,13 +109,13 @@ func update_jetpack_stamina(change):
 func jump_normal():
 #		NO BORRAR NO BORRAR NO BORRAR
 		#SALTO SENSIBLE
-#		position.y -= 5 if is_on_floor() else 0
-#		motion.y -= 150
-#		jump_stamina -= 25
+		position.y -= 5 if is_on_floor() else 0
+		motion.y -= 150
+		jump_stamina -= 25
 		#SALTO NO-SENSIBLE
-		motion.y -= 450 if is_on_floor() else 0 
-		position.y -= 5
-		jump_stamina -= 25 
+#		motion.y -= 450 if is_on_floor() else 0 
+#		position.y -= 5
+#		jump_stamina -= 25 
 		jumping = true
 		$AnimatedSprite.play('jump')
 		$AudioJump.play()
@@ -122,9 +129,9 @@ func jump_jetpack():
 			if !$AudioJetpack.playing:
 				$AudioJetpack.play()
 		else:
-			motion.y = -50
+			motion.y = -150
 			jetpack_started = true
-			update_jetpack_stamina(-3)
+			update_jetpack_stamina(-10)
 			$AudioBoost.play()
 			
 		jumping = true
@@ -164,3 +171,24 @@ func end_jetpack_boost():
 func increase_difficulty():
 	if SPEED_DIF_MOD < 400:
 		SPEED_DIF_MOD += 10
+
+
+
+func check_jetpack_stamina_recharger():
+	if jetpack_stamina < 50 and !started_jetpack_recharge:
+		$AnimatedSprite/Jetpack/Jetpack_recharge_timer.start()
+		started_jetpack_recharge = true
+
+func _on_Jetpack_recharge_timer_timeout():
+		jetpack_recharge_left = 50
+		recharging_jetpack = true
+		
+func recharge_jetpack():
+	if jetpack_recharge_left > 0 and jetpack_stamina < 50:
+		jetpack_stamina += 1
+		jetpack_recharge_left -= 1
+	else:
+		recharging_jetpack = false
+		started_jetpack_recharge = false
+
+

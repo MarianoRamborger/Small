@@ -6,6 +6,7 @@
 
 [node name="Basic+Rock" type="Node2D"]
 script = ExtResource( 3 )
+hasHazard0 = true
 
 [node name="Floor" parent="." instance=ExtResource( 1 )]
 

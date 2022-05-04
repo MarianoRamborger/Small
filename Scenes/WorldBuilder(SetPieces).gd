@@ -18,9 +18,9 @@ extends Node2D
 # El visibilizador tendria que arrancar dentro de pantalla.
 # Then, al salir, deja de crear.
 # Al re-entrar, vuelve a crear so no problem.
-onready var Hazards_factory = $Factories/HazardsFactory
+#onready var Hazards_factory = $Factories/HazardsFactory
 onready var Items_factory = $Factories/ItemsFactory
-onready var Enemies_factory = $Factories/EnemiesFactory
+#onready var Enemies_factory = $Factories/EnemiesFactory
 onready var Block_factory = $Factories/BlocksFactory
 var Spawners
 export var create_at_X = 1225 #First tile shall be created here
@@ -28,17 +28,16 @@ export var tile_lenght = 175
 var canCreate = true
 #var tile = load("res://Prefabs/Floors/Basic/BasicFloor.tscn")
 #var tile = load("res://Prefabs/Spawnable-Blocks/Basic.tscn")
-var tileRock = load("res://Prefabs/Spawnable-Blocks/Basic+Rock.tscn")
 var rng = RandomNumberGenerator.new()
 var difficulty_level = 1
+var world_level = -1
 
 
 
 func _ready():
-	pass # Replace with function body.
 	rng.randomize()
 	Block_factory.rng = rng
-	Spawners = [Items_factory,Hazards_factory, Enemies_factory] #Add enemies later
+	Spawners = [Items_factory] 
 
 func _physics_process(delta):
 	if canCreate:
@@ -52,6 +51,11 @@ func _on_VisibilityNotifier2D_screen_entered():
 
 func increase_difficulty():
 		difficulty_level += 1
+		
+
+func increase_world_level(worldLevel):
+	world_level = worldLevel
+
 
 func create_terrain():
 	
@@ -63,30 +67,11 @@ func create_terrain():
 	get_parent().add_child(newTile)
 	
 	#HANDLE GEM SPAWNS SEPARATELY
-	Spawners[0].spawn(newTile, "Ground")
+#	if world_level >= 0:
+#		Spawners[0].spawn(newTile, "Ground")
 
 	var chance = clamp(rng.randi_range(0,difficulty_level), 0, 6)
 	
-#	Spawners[1].spawn(newTile, "Ground", difficulty_level)
-
-
-#	if chance == 0:
-#		Spawners[1].spawn(newTile, "Ground", difficulty_level)
-#	if chance == 1:
-#		Spawners[1].spawn(newTile, "Ground", difficulty_level)
-#	if chance == 2:
-#		Spawners[1].spawn(newTile,"Air", difficulty_level)
-#	if chance == 3:
-#		Spawners[2].spawn(newTile,"Air", difficulty_level)
-#	if chance == 4:
-#		Spawners[2].spawn(newTile, "Ground", difficulty_level)
-#	if chance == 5:
-#		Spawners[1].spawn(newTile, "Ground", difficulty_level)
-#		Spawners[2].spawn(newTile,"Air", difficulty_level)
-#	if chance == 6: 
-#		Spawners[2].spawn(newTile, "Ground", difficulty_level)
-#		Spawners[1].spawn(newTile,"Air", difficulty_level)
-
 
 	create_at_X += newTile.total_lenght
 	position.x += newTile.total_lenght

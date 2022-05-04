@@ -18,7 +18,7 @@ func _on_EraserArea_area_entered(area):
 	if area.has_method("Despawn"):
 		area.Despawn()
 	elif area.get_parent().has_method("Despawn"):
-		area.get_parent().has_method.despawn()
+		area.get_parent().Despawn()
 
 
 

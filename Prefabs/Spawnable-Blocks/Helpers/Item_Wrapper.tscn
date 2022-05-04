@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Item_Wrapper.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Items/Coin/Coin.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Items/Fuel/Fuel.tscn" type="PackedScene" id=3]
+
+[node name="Item_Wrapper" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_editor_description_": "Idea?
+Cargar casi todos los objetos (no seran mas de 10?) y que cada instancia decida su probabilidad. 
+Then poner en una variable la suma de esas probabilidades, tambien de la instancia.
+Then tirar un random con ese lenght y ver que objeto cae dentor de la probabilidad
+COMO?
+
+Loop through the objects.
+Si es mayor al numero que salio del randirange, pero menor que el numero del objeto anterior (or 0), es ese item.
+
+
+
+"
+}
+possible_items = [ {
+"Item": ExtResource( 2 ),
+"Name": "BronzeCoin",
+"Probability": 6
+}, {
+"Item": ExtResource( 3 ),
+"Name": "GreenGem",
+"Probability": 7
+} ]

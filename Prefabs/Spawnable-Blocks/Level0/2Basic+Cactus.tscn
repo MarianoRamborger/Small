@@ -1,13 +1,17 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Prefabs/Spawnable-Blocks/scripts/BasicBlock.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Enemies/Hazards/Cactus/Cactus.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Items/Coin/Coin.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Item_Wrapper.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Items/Fuel/Fuel.tscn" type="PackedScene" id=6]
 
 [node name="Double+Cactus" type="Node2D"]
 script = ExtResource( 1 )
-hazard0RandomizerX = 20
+hazard0RandomizerX = 10
 total_lenght = 350
+hasHazard0 = true
 
 [node name="Floor" parent="." instance=ExtResource( 3 )]
 
@@ -16,3 +20,15 @@ position = Vector2( 175, 0 )
 
 [node name="Hazard0" parent="." instance=ExtResource( 2 )]
 position = Vector2( 11, -116 )
+
+[node name="Item_Wrapper" parent="." instance=ExtResource( 5 )]
+position = Vector2( 11, -206 )
+available_positions = PoolVector2Array( 0, 0, -80, 40, 80, 40 )
+has_random_item = true
+possible_items = [ {
+"Item": ExtResource( 4 ),
+"Probability": 6
+}, {
+"Item": ExtResource( 6 ),
+"Probability": 7
+} ]

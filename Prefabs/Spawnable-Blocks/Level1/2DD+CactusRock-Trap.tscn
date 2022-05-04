@@ -10,6 +10,7 @@
 script = ExtResource( 4 )
 hazard0RandomizerX = 50
 total_lenght = 700
+hasHazard0 = true
 
 [node name="Floor" parent="." instance=ExtResource( 3 )]
 

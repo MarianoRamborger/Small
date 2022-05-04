@@ -169,9 +169,11 @@ func end_jetpack_boost():
 	
 
 func increase_difficulty():
-	if SPEED_DIF_MOD < 400:
-		SPEED_DIF_MOD += 10
+	if SPEED_DIF_MOD < 500:
+		SPEED_DIF_MOD += 20
 
+func increase_world_level(worldLevel):
+	SPEED_DIF_MOD = 0
 
 
 func check_jetpack_stamina_recharger():

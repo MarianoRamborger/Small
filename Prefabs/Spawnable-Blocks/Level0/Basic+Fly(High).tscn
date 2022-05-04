@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Prefabs/Spawnable-Blocks/scripts/BasicBlock.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Enemies/Mobs/Fly/Fly.tscn" type="PackedScene" id=3]
+
+[node name="Basic" type="Node2D"]
+script = ExtResource( 1 )
+hazard0RandomizerX = 60
+hazard0RandomizerY = 1
+enemy0RandomizerY = 400
+hasEnemy0 = true
+
+[node name="Floor" parent="." instance=ExtResource( 2 )]
+
+[node name="Enemy0" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -433 )

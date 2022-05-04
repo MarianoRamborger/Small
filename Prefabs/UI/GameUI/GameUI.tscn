@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Prefabs/UI/GameUI/GameUI.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/UI/GameUI/kenvector_future.ttf" type="DynamicFontData" id=2]
@@ -19,7 +19,22 @@ bg_color = Color( 0, 0, 0, 1 )
 size = 45
 font_data = ExtResource( 2 )
 
-[node name="CanvasLayer" type="CanvasLayer" groups=["Game_UI"]]
+[sub_resource type="Animation" id=8]
+resource_name = "anounce_level"
+tracks/0/type = "value"
+tracks/0/path = NodePath("Control/VboxStage/LevelLabel:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6 ),
+"transitions": PoolRealArray( 3.15939e-05, 4.78874e-05, 3.15939e-05, 4.78874e-05, 3.15939e-05, 4.78874e-05, 3.15939e-05 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ), Color( 1, 0, 0, 1 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="CanvasLayer" type="CanvasLayer" groups=["Game_UI", "World_Level"]]
 script = ExtResource( 1 )
 
 [node name="Control" type="Control" parent="."]
@@ -75,3 +90,39 @@ align = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="VboxStage" type="VBoxContainer" parent="Control"]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -512.0
+margin_top = 135.0
+margin_right = 512.0
+margin_bottom = 202.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/VboxStage"]
+root_node = NodePath("../../..")
+anims/anounce_level = SubResource( 8 )
+
+[node name="LevelLabel" type="Label" parent="Control/VboxStage"]
+visible = false
+margin_right = 1024.0
+margin_bottom = 52.0
+custom_fonts/font = SubResource( 7 )
+text = "STAGE 1"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="StageLevelTimer" type="Timer" parent="Control/VboxStage"]
+wait_time = 2.0
+
+[node name="ReadyTimer" type="Timer" parent="Control/VboxStage"]
+wait_time = 1.2
+one_shot = true
+
+[connection signal="timeout" from="Control/VboxStage/StageLevelTimer" to="." method="_on_StageLevelTimer_timeout"]
+[connection signal="timeout" from="Control/VboxStage/ReadyTimer" to="." method="_on_ReadyTimer_timeout"]

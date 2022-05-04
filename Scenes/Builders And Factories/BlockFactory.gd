@@ -5,7 +5,21 @@ var blocks_since_rest = 3
 var warmups_remaining = 10  
 var rng
 var difficulty = 0
+var world_level = -1
+
+#Dentro de un mismo 'Level", la dificultad y velocidad aumentan?
+#Then speed baja al principio del nivel siguiente?
 var blocks = [
+		{
+		name = "Basic",
+		difficulty = 0,
+		type = BLOCK_TYPE.REST,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic.tscn")
+	},
+]
+var lvl0Blocks = [
 	{
 		name = "Basic",
 		difficulty = 0,
@@ -29,6 +43,14 @@ var blocks = [
 		repeatable = false,
 		floors = 'simple',
 		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/2Basic+Cactus.tscn")
+	},
+	{
+		name = "Basic+Fly(High)",
+		difficulty = 0,
+		type = BLOCK_TYPE.WARMUP,
+		repeatable = false,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic+Fly(High).tscn")
 	},
 		{
 		name = "PLACEHOLDERLVL0CHALLENGE",
@@ -74,7 +96,7 @@ var lvl2Blocks = [
 		type = BLOCK_TYPE.CHALLENGE,
 		repeatable = false,
 		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level3/Basic+3Flyers.tscn")
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level1/2DD+CactusRock-Trap.tscn")
 	},
 ]
 
@@ -85,7 +107,7 @@ var lvl3Blocks = [
 		type = BLOCK_TYPE.CHALLENGE,
 		repeatable = false,
 		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/1Block/Basic+3Flyers.tscn")
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level3/Basic+3Flyers.tscn")
 	},
 ]
 
@@ -122,7 +144,8 @@ func getBlock(strict_difficulty = false ):
 
 
 func pick_next_block_type():
-
+	if world_level == -1:
+		return BLOCK_TYPE.REST
 	if (lastBlock["type"] == BLOCK_TYPE.CHALLENGE):
 		return BLOCK_TYPE.REST
 	elif (warmups_remaining <= 0 and lastBlock["type"] == BLOCK_TYPE.REST):
@@ -130,13 +153,17 @@ func pick_next_block_type():
 		return BLOCK_TYPE.CHALLENGE
 
 	else:
-		 return BLOCK_TYPE.REST if rng.randi_range(0,1) == 0 else BLOCK_TYPE.WARMUP
+		 return BLOCK_TYPE.REST if rng.randi_range(0,2) == 0 else BLOCK_TYPE.WARMUP
 		 
 
-
 func increase_difficulty():
-	difficulty += 1
-	if difficulty == 1:
+	pass
+
+func increase_world_level(worldLevel):
+	world_level = worldLevel
+	if world_level == 0:
+		blocks = lvl0Blocks
+	if world_level == 1:
 		blocks.append_array(lvl1Blocks)
 		
 #	if difficulty == 2:

@@ -26,6 +26,7 @@ points = 50
 
 [node name="Item_Wrapper" parent="." instance=ExtResource( 5 )]
 available_positions = PoolVector2Array( 5, 20 )
+chance_to_spawn = 3
 
 [node name="Coin" parent="Item_Wrapper" instance=ExtResource( 4 )]
 position = Vector2( 175, -193 )

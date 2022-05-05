@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Wrapper.gd" type="Script" id=1]
 
-[node name="Item_Wrapper" type="Node2D"]
+[node name="Challenge_Wrapper" type="Node2D"]
 script = ExtResource( 1 )
 __meta__ = {
 "_editor_description_": "For deterministic items.

@@ -24,7 +24,6 @@ position = Vector2( 0, -116 )
 [node name="BronzeCoin" parent="." instance=ExtResource( 5 )]
 position = Vector2( -75, -215 )
 available_positions = PoolVector2Array( 0, 0 )
-has_random_item = true
 possible_items = [ {
 "Item": ExtResource( 4 ),
 "Probability": 6
@@ -36,7 +35,6 @@ possible_items = [ {
 [node name="CoinOrGem" parent="." instance=ExtResource( 5 )]
 position = Vector2( 0, -270 )
 available_positions = PoolVector2Array( 0, -20 )
-has_random_item = true
 possible_items = [ {
 "Item": ExtResource( 4 ),
 "Probability": 5
@@ -48,7 +46,6 @@ possible_items = [ {
 [node name="BronzeCoin2" parent="." instance=ExtResource( 5 )]
 position = Vector2( 75, -215 )
 available_positions = PoolVector2Array( 0, 0 )
-has_random_item = true
 possible_items = [ {
 "Item": ExtResource( 4 ),
 "Probability": 6

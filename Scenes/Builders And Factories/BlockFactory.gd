@@ -52,7 +52,6 @@ var lvl0Blocks = [
 		floors = 'simple',
 		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/2Basic+Cactus.tscn")
 	},
-	
 	{
 		name = "2Basic+CactusLureTrap",
 		difficulty = 0,
@@ -61,21 +60,13 @@ var lvl0Blocks = [
 		floors = 'simple',
 		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basicx2CactusTrap.tscn")
 	},
-#{
-#		name = "Bhalfblockspike",
-#		difficulty = 0,
-#		type = BLOCK_TYPE.WARMUP,
-#		repeatable = false,
-#		floors = 'simple',
-#		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic+halfblockspike.tscn")
-#	},
 		{
-		name = "2Basic+SpikeTrap",
+		name = "Tricactus",
 		difficulty = 0,
-		type = BLOCK_TYPE.CHALLENGE,
+		type = BLOCK_TYPE.WARMUP,
 		repeatable = true,
 		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/2Basic+SpikeTrap.tscn")
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Tricactus.tscn")
 	},
 ]
 
@@ -174,7 +165,13 @@ func pick_next_block_type():
 		 
 
 func increase_difficulty():
-	pass
+	difficulty += 1
+	if difficulty == 1 and world_level == 0:
+		print("ADDED")
+		blocks.append({
+		name = "PassDown", difficulty = 0, type = BLOCK_TYPE.WARMUP, repeatable = false,
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/PassDownSpikes.tscn")
+		})
 
 func increase_world_level(worldLevel):
 	world_level = worldLevel

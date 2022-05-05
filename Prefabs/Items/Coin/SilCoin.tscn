@@ -4,7 +4,7 @@
 [ext_resource path="res://Prefabs/Items/Coin/Coin.gd" type="Script" id=2]
 [ext_resource path="res://Prefabs/Items/Coin/Sprites/coinSilver.png" type="Texture" id=3]
 [ext_resource path="res://Prefabs/Items/Coin/Sprites/coinGold.png" type="Texture" id=4]
-[ext_resource path="res://Prefabs/Items/Coin/Sounds/BronzePickup.wav" type="AudioStream" id=5]
+[ext_resource path="res://Prefabs/Items/Coin/Sounds/SilverPickup.wav" type="AudioStream" id=5]
 
 [sub_resource type="SpriteFrames" id=4]
 animations = [ {
@@ -85,8 +85,9 @@ tracks/2/keys = {
 } ]
 }
 
-[node name="Coin" type="Node2D"]
+[node name="SilverCoin" type="Node2D"]
 script = ExtResource( 2 )
+type = "Silver"
 
 [node name="CoinArea" type="Area2D" parent="."]
 collision_layer = 8

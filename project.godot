@@ -14,10 +14,6 @@ config/name="Smalls"
 run/main_scene="res://Scenes/Main.tscn"
 config/icon="res://icon.png"
 
-[debug]
-
-settings/stdout/print_fps=true
-
 [global]
 
 full=false

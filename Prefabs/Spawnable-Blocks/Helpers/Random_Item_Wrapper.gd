@@ -1,7 +1,9 @@
 extends Node2D
 
 export var available_positions = PoolVector2Array()
-export var has_random_item = false
+
+
+export var has_random_item = true
 
 
 #Venue para poder spawnear items al azar, desde la consola.
@@ -17,24 +19,25 @@ func _ready():
 		#Well, basically sortea el array para tener la chance de mayor valor (no necesariamente la chance mas alta) al final
 		#Then, decide al azar entre 0, prob mas alta
 		#Then, itera el array de objetos y, al encontrar uno mayor que la chance, gets it.
-
 		if has_random_item:
-				possible_items.sort_custom(ProbabilitySorter, "sort")
-				var last_item = possible_items[len(possible_items) - 1]
-				var maximum_probability = last_item["Probability"]
-				var probability = rng.randi_range(0, maximum_probability)
-				for item in possible_items:
-					if item["Probability"] > probability:
-						var newItem = item["Item"].instance()
-						add_child(newItem)
-						return
-					
-		
+			create_random_item()
 		for child in get_children():
+
 			var offset = available_positions[rng.randi_range(0, len(available_positions) - 1)]
 			child.position.x += offset.x
 			child.position.y += offset.y
 
+
+func create_random_item():
+		possible_items.sort_custom(ProbabilitySorter, "sort")
+		var last_item = possible_items[len(possible_items) - 1]
+		var maximum_probability = last_item["Probability"]
+		var probability = rng.randi_range(0, maximum_probability)
+		for item in possible_items:
+			if item["Probability"] >= probability:
+				var newItem = item["Item"].instance()
+				add_child(newItem)
+				return
 
 
 class ProbabilitySorter:

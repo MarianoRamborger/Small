@@ -17,6 +17,8 @@ func _on_CoinArea_area_entered(area):
 		if area.name == "Player_Hitbox":
 			get_tree().call_group("GameManager", "score_up", points)
 			$AnimationPlayer.play("pick_up")
+			$CoinArea/AudioStreamPlayer2D.play()
+
 
 
 func Despawn():

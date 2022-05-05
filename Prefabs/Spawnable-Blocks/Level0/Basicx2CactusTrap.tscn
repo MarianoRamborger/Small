@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/scripts/BasicBlock.gd" type="Script" id=2]
+[ext_resource path="res://Prefabs/Items/Coin/SilCoin.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Items/Coin/GoldCoin.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Random_Item_Wrapper.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Enemies/Hazards/Cactus/Cactus.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Challenge_Wrapper.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Prefabs/Items/Coin/Coin.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Prefabs/Items/Fuel/Fuel.tscn" type="PackedScene" id=9]
+
+[node name="Double" type="Node2D"]
+script = ExtResource( 2 )
+hazard0RandomizerX = 20
+total_lenght = 350
+
+[node name="Floor" parent="." instance=ExtResource( 1 )]
+
+[node name="Floor2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 175, 0 )
+
+[node name="Item_Wrapper" parent="." instance=ExtResource( 7 )]
+
+[node name="Area2D" parent="Item_Wrapper" instance=ExtResource( 6 )]
+position = Vector2( -19, -115 )
+points = 0
+
+[node name="Item_Wrapper2" parent="." instance=ExtResource( 7 )]
+position = Vector2( 200, 0 )
+
+[node name="Area2D" parent="Item_Wrapper2" instance=ExtResource( 6 )]
+position = Vector2( -19, -115 )
+points = 0
+
+[node name="Random_Item_Wrapper" parent="." instance=ExtResource( 5 )]
+position = Vector2( 83, -219 )
+available_positions = PoolVector2Array( 0, 20 )
+has_random_item = true
+possible_items = [ {
+"Item": ExtResource( 8 ),
+"Name": "BronzeCoin",
+"Probability": 6
+}, {
+"Item": ExtResource( 9 ),
+"Name": "GreenGem",
+"Probability": 7
+}, {
+"Item": ExtResource( 3 ),
+"Name": "SilverCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 4 ),
+"Name": "GoldenCoin",
+"Probability": -1
+} ]

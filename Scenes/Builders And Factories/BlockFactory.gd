@@ -21,12 +21,20 @@ var blocks = [
 ]
 var lvl0Blocks = [
 	{
-		name = "Basic",
+		name = "DoubleBasic",
 		difficulty = 0,
 		type = BLOCK_TYPE.REST,
 		repeatable = true,
 		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic.tscn")
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basicx2.tscn")
+	},
+	{
+		name = "Escalator",
+		difficulty = 0,
+		type = BLOCK_TYPE.CHALLENGE,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Escalator.tscn")
 	},
 	{
 		name = "2Basic+Rock",
@@ -44,21 +52,30 @@ var lvl0Blocks = [
 		floors = 'simple',
 		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/2Basic+Cactus.tscn")
 	},
+	
 	{
-		name = "Basic+Fly(High)",
-		difficulty = 0,
-		type = BLOCK_TYPE.WARMUP,
-		repeatable = false,
-		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic+Fly(High).tscn")
-	},
-		{
-		name = "PLACEHOLDERLVL0CHALLENGE",
+		name = "2Basic+CactusLureTrap",
 		difficulty = 0,
 		type = BLOCK_TYPE.CHALLENGE,
 		repeatable = false,
 		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/2Basic+Rock.tscn")
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basicx2CactusTrap.tscn")
+	},
+#{
+#		name = "Bhalfblockspike",
+#		difficulty = 0,
+#		type = BLOCK_TYPE.WARMUP,
+#		repeatable = false,
+#		floors = 'simple',
+#		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic+halfblockspike.tscn")
+#	},
+		{
+		name = "2Basic+SpikeTrap",
+		difficulty = 0,
+		type = BLOCK_TYPE.CHALLENGE,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/2Basic+SpikeTrap.tscn")
 	},
 ]
 

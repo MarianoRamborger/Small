@@ -1,0 +1,56 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://Prefabs/Spawnable-Blocks/scripts/BasicBlock.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Item_Wrapper.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Enemies/Hazards/Spikes/Spikes.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Floors/Halfs/HalfFloor.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Items/Coin/Coin.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Random_Item_Wrapper.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Prefabs/Items/Coin/SilCoin.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Prefabs/Items/Coin/GoldCoin.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Prefabs/Items/Fuel/Fuel.tscn" type="PackedScene" id=10]
+
+[node name="Basic" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Floor" parent="." instance=ExtResource( 2 )]
+
+[node name="Item_Wrapper" parent="." instance=ExtResource( 3 )]
+position = Vector2( 0, -31 )
+available_positions = PoolVector2Array( 0, 50 )
+
+[node name="HalfFloor" parent="Item_Wrapper" instance=ExtResource( 5 )]
+position = Vector2( 0, -136 )
+scale = Vector2( 2, 2 )
+
+[node name="Spikes" parent="Item_Wrapper/HalfFloor" instance=ExtResource( 4 )]
+position = Vector2( -49, -14.5 )
+rotation = -1.5708
+scale = Vector2( 0.55, 0.4 )
+
+[node name="Spikes2" parent="Item_Wrapper/HalfFloor" instance=ExtResource( 4 )]
+position = Vector2( 49, -14.5 )
+rotation = 1.5708
+scale = Vector2( 0.55, 0.4 )
+
+[node name="Random_Item_Wrapper" parent="." instance=ExtResource( 7 )]
+position = Vector2( 0, -218 )
+available_positions = PoolVector2Array( 0, 15 )
+possible_items = [ {
+"Item": ExtResource( 6 ),
+"Name": "BronzeCoin",
+"Probability": 3
+}, {
+"Item": ExtResource( 10 ),
+"Name": "GreenGem",
+"Probability": 5
+}, {
+"Item": ExtResource( 8 ),
+"Name": "SilverCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 9 ),
+"Name": "GoldenCoin",
+"Probability": -1
+} ]

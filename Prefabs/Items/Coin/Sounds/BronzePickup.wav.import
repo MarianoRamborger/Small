@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/BronzePickup.wav-a24e2f5acec5d3803b65ba0cd86d8568.sample"
+
+[deps]
+
+source_file="res://Prefabs/Items/Coin/Sounds/BronzePickup.wav"
+dest_files=[ "res://.import/BronzePickup.wav-a24e2f5acec5d3803b65ba0cd86d8568.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

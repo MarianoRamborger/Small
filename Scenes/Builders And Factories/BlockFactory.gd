@@ -172,6 +172,15 @@ func increase_difficulty():
 		name = "PassDown", difficulty = 0, type = BLOCK_TYPE.WARMUP, repeatable = false,
 		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/PassDownSpikes.tscn")
 		})
+	elif difficulty == 3 and world_level == 0:
+		blocks.append({
+		name = "Bombardier Fly",
+		difficulty = 0,
+		type = BLOCK_TYPE.WARMUP,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/BombardierFly.tscn")
+	})
 
 func increase_world_level(worldLevel):
 	world_level = worldLevel

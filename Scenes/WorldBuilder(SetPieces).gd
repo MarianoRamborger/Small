@@ -28,14 +28,14 @@ export var tile_lenght = 175
 var canCreate = true
 #var tile = load("res://Prefabs/Floors/Basic/BasicFloor.tscn")
 #var tile = load("res://Prefabs/Spawnable-Blocks/Basic.tscn")
-var rng = RandomNumberGenerator.new()
+var rng
 var difficulty_level = 1
 var world_level = -1
 
 
 
 func _ready():
-	rng.randomize()
+	rng = RngSingleton.rng
 	Block_factory.rng = rng
 	Spawners = [Items_factory] 
 

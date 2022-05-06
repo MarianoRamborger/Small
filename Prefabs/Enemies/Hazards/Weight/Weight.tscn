@@ -1,0 +1,62 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Prefabs/Enemies/Hazards/Weight/Weight.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Enemies/Hazards/Weight/weightChained.png" type="Texture" id=2]
+[ext_resource path="res://Prefabs/Enemies/Hazards/Weight/weight.png" type="Texture" id=3]
+[ext_resource path="res://Prefabs/Enemies/Hazards/Weight/chain.png" type="Texture" id=4]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ) ],
+"loop": true,
+"name": "chained",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "unchained",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 4, 14 )
+
+[node name="WeightNode" type="Node2D"]
+
+[node name="WeightBody" type="KinematicBody2D" parent="."]
+collision_layer = 16
+collision_mask = 4
+script = ExtResource( 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="WeightBody"]
+frames = SubResource( 1 )
+animation = "chained"
+
+[node name="bodyPolygon" type="CollisionPolygon2D" parent="WeightBody"]
+visible = false
+polygon = PoolVector2Array( -29, 35, -32, 32, -33, 29, -33, 23, -23, -23, -19, -25, -7, -25, -7, -29, -5, -33, -2, -35, 4, -35, 7, -31, 7, -25, 20, -25, 21, -24, 23, -23, 33, 25, 33, 31, 29, 35 )
+
+[node name="Chain" type="Area2D" parent="WeightBody"]
+collision_layer = 2
+collision_mask = 5
+
+[node name="Sprite" type="Sprite" parent="WeightBody/Chain"]
+position = Vector2( 0, -46 )
+scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WeightBody/Chain"]
+visible = false
+position = Vector2( 0, -46 )
+shape = SubResource( 2 )
+
+[node name="WeightArea" type="Area2D" parent="WeightBody"]
+collision_layer = 2
+collision_mask = 5
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="WeightBody/WeightArea"]
+visible = false
+polygon = PoolVector2Array( -29, 36, 29, 36, 34, 31, 34, 24, 24, -23, 20, -26, 9, -26, 8, -33, 4, -36, -5, -35, -8, -30, -8, -26, -18, -26, -23, -24, -24, -22, -34, 24, -34, 31 )
+
+[connection signal="area_entered" from="WeightBody/Chain" to="WeightBody" method="_on_Area2D_area_entered"]
+[connection signal="area_entered" from="WeightBody/WeightArea" to="WeightBody" method="_on_WeightArea_area_entered"]

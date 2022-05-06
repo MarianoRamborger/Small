@@ -36,7 +36,6 @@ points = 0
 [node name="Random_Item_Wrapper" parent="." instance=ExtResource( 5 )]
 position = Vector2( 83, -219 )
 available_positions = PoolVector2Array( 0, 20 )
-has_random_item = true
 possible_items = [ {
 "Item": ExtResource( 8 ),
 "Name": "BronzeCoin",

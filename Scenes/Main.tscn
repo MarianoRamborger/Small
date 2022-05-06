@@ -11,7 +11,7 @@
 [ext_resource path="res://Scenes/Builders And Factories/ItemsFactory.gd" type="Script" id=9]
 [ext_resource path="res://Prefabs/Items/Coin/SilCoin.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Prefabs/Items/Coin/GoldCoin.tscn" type="PackedScene" id=11]
-[ext_resource path="res://Prefabs/Spawnable-Blocks/Level0/PassDownSpikes.tscn" type="PackedScene" id=12]
+[ext_resource path="res://Prefabs/Enemies/Mobs/FlyBombardier/FlyBombardier.tscn" type="PackedScene" id=12]
 [ext_resource path="res://Scenes/Background/catchmeifyoucan.ogg" type="AudioStream" id=13]
 [ext_resource path="res://Scenes/Builders And Factories/BlockFactory.gd" type="Script" id=14]
 [ext_resource path="res://Prefabs/UI/PauseMenu/PauseMenu.tscn" type="PackedScene" id=15]
@@ -124,8 +124,8 @@ autoplay = true
 
 [node name="PauseUI" parent="." instance=ExtResource( 15 )]
 
-[node name="Basic" parent="." instance=ExtResource( 12 )]
-position = Vector2( 1051, 0 )
+[node name="BombardierFly" parent="." instance=ExtResource( 12 )]
+position = Vector2( 1031, -373 )
 
 [connection signal="screen_entered" from="WorldBuilder/VisibilityNotifier2D" to="WorldBuilder" method="_on_VisibilityNotifier2D_screen_entered"]
 [connection signal="screen_exited" from="WorldBuilder/VisibilityNotifier2D" to="WorldBuilder" method="_on_VisibilityNotifier2D_screen_exited"]

@@ -19,7 +19,7 @@ hasHazard0 = true
 position = Vector2( 175, 0 )
 
 [node name="Hazard0" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, -116 )
+position = Vector2( 10, -116 )
 
 [node name="BronzeCoin" parent="." instance=ExtResource( 5 )]
 position = Vector2( -75, -215 )

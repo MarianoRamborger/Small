@@ -1,0 +1,215 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Prefabs/Floors/Halfs/HalfFloor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Challenge_Wrapper.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Items/Coin/SilCoin.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Items/Coin/GoldCoin.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Items/Fuel/Fuel.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Prefabs/Items/Health/Health.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Random_Item_Wrapper.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Prefabs/Enemies/Hazards/Cactus/Cactus.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Prefabs/Items/Coin/Coin.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/scripts/BasicBlock.gd" type="Script" id=11]
+
+[node name="Basic" type="Node2D"]
+script = ExtResource( 11 )
+total_lenght = 1225
+
+[node name="Floor" parent="." instance=ExtResource( 4 )]
+
+[node name="Challenge_Wrapper" parent="Floor" instance=ExtResource( 2 )]
+show_behind_parent = true
+scale = Vector2( 0.4, 0.4 )
+available_positions = PoolVector2Array( 0, 0 )
+chance_to_spawn = 2
+
+[node name="Cactus" parent="Floor/Challenge_Wrapper" instance=ExtResource( 9 )]
+show_behind_parent = true
+position = Vector2( -21, -115 )
+points = 10
+
+[node name="Floor2" parent="." instance=ExtResource( 4 )]
+position = Vector2( 175, 0 )
+
+[node name="HalfFloor" parent="Floor2" instance=ExtResource( 1 )]
+position = Vector2( 36.8, -119.6 )
+scale = Vector2( 1, 0.8 )
+skin = "Desert"
+
+[node name="Challenge_Wrapper2" parent="Floor2/HalfFloor" instance=ExtResource( 2 )]
+show_behind_parent = true
+position = Vector2( 22.4, 9 )
+scale = Vector2( 0.4, 0.5 )
+available_positions = PoolVector2Array( 10, 0 )
+chance_to_spawn = 7
+
+[node name="Cactus" parent="Floor2/HalfFloor/Challenge_Wrapper2" instance=ExtResource( 9 )]
+show_behind_parent = true
+position = Vector2( -20, -106 )
+scale = Vector2( 0.6, 0.6 )
+points = 10
+
+[node name="Challenge_Wrapper3" parent="Floor2/HalfFloor" instance=ExtResource( 2 )]
+show_behind_parent = true
+position = Vector2( -0.399994, -38.5 )
+rotation = -3.14159
+scale = Vector2( 0.4, 0.5 )
+available_positions = PoolVector2Array( 0, 0 )
+chance_to_spawn = 2
+
+[node name="Cactus" parent="Floor2/HalfFloor/Challenge_Wrapper3" instance=ExtResource( 9 )]
+show_behind_parent = true
+position = Vector2( -21, -115 )
+points = 10
+
+[node name="Floor3" parent="." instance=ExtResource( 4 )]
+position = Vector2( 350, 0 )
+
+[node name="Floor4" parent="." instance=ExtResource( 4 )]
+position = Vector2( 525, 0 )
+
+[node name="Floor5" parent="." instance=ExtResource( 4 )]
+position = Vector2( 700, 0 )
+
+[node name="Floor6" parent="." instance=ExtResource( 4 )]
+position = Vector2( 875, 0 )
+
+[node name="Floor7" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1050, 0 )
+
+[node name="Random_Item_Wrapper" parent="." instance=ExtResource( 8 )]
+position = Vector2( 61, -222 )
+possible_items = [ {
+"Item": ExtResource( 10 ),
+"Name": "BronzeCoin",
+"Probability": 2
+}, {
+"Item": ExtResource( 6 ),
+"Name": "GreenGem",
+"Probability": 3
+}, {
+"Item": ExtResource( 3 ),
+"Name": "SilverCoin",
+"Probability": 6
+}, {
+"Item": ExtResource( 5 ),
+"Name": "GoldenCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 7 ),
+"Name": "Health",
+"Probability": -1
+} ]
+
+[node name="Random_Item_Wrapper2" parent="." instance=ExtResource( 8 )]
+position = Vector2( 364, -523 )
+possible_items = [ {
+"Item": ExtResource( 10 ),
+"Name": "BronzeCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 6 ),
+"Name": "GreenGem",
+"Probability": 1
+}, {
+"Item": ExtResource( 3 ),
+"Name": "SilverCoin",
+"Probability": 2
+}, {
+"Item": ExtResource( 5 ),
+"Name": "GoldenCoin",
+"Probability": 5
+}, {
+"Item": ExtResource( 7 ),
+"Name": "Health",
+"Probability": 6
+} ]
+
+[node name="Challenge_Wrapper" parent="." instance=ExtResource( 2 )]
+position = Vector2( 358, -139 )
+chance_to_spawn = 8
+
+[node name="Cactus" parent="Challenge_Wrapper" instance=ExtResource( 9 )]
+position = Vector2( 87, 24 )
+
+[node name="Challenge_Wrapper4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 745, -373 )
+chance_to_spawn = 4
+
+[node name="HalfFloor" parent="Challenge_Wrapper4" instance=ExtResource( 1 )]
+position = Vector2( 0, -19 )
+skin = "Desert"
+
+[node name="Random_Item_Wrapper3" parent="Challenge_Wrapper4" instance=ExtResource( 8 )]
+position = Vector2( 1, -187 )
+possible_items = [ {
+"Item": ExtResource( 10 ),
+"Name": "BronzeCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 6 ),
+"Name": "GreenGem",
+"Probability": 1
+}, {
+"Item": ExtResource( 3 ),
+"Name": "SilverCoin",
+"Probability": 3
+}, {
+"Item": ExtResource( 5 ),
+"Name": "GoldenCoin",
+"Probability": 4
+}, {
+"Item": ExtResource( 7 ),
+"Name": "Health",
+"Probability": 5
+} ]
+
+[node name="Cactus2" parent="Challenge_Wrapper4" instance=ExtResource( 9 )]
+show_behind_parent = true
+position = Vector2( -37, 7.00003 )
+rotation = -3.14159
+points = 10
+
+[node name="Cactus3" parent="Challenge_Wrapper4" instance=ExtResource( 9 )]
+show_behind_parent = true
+position = Vector2( 34, 7.00003 )
+rotation = -3.14159
+points = 10
+
+[node name="HalfFloor" parent="." instance=ExtResource( 1 )]
+position = Vector2( 1027, -217 )
+skin = "Desert"
+
+[node name="Cactus4" parent="HalfFloor" instance=ExtResource( 9 )]
+show_behind_parent = true
+position = Vector2( -19.2, 17 )
+rotation = -3.14159
+scale = Vector2( 0.32, 0.4 )
+points = 10
+
+[node name="Random_Item_Wrapper3" parent="." instance=ExtResource( 8 )]
+position = Vector2( 1029, -326 )
+possible_items = [ {
+"Item": ExtResource( 10 ),
+"Name": "BronzeCoin",
+"Probability": 4
+}, {
+"Item": ExtResource( 6 ),
+"Name": "GreenGem",
+"Probability": 8
+}, {
+"Item": ExtResource( 3 ),
+"Name": "SilverCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 5 ),
+"Name": "GoldenCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 7 ),
+"Name": "Health",
+"Probability": -1
+} ]
+
+[node name="Challenge_Wrapper5" parent="." instance=ExtResource( 2 )]

@@ -17,7 +17,7 @@ script = ExtResource( 3 )
 
 [node name="HalfFloor" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, -248 )
-scale = Vector2( 2, 2 )
+scale = Vector2( 1.8, 1.8 )
 
 [node name="Spikes" parent="HalfFloor" instance=ExtResource( 4 )]
 position = Vector2( 5.49016e-07, 27 )

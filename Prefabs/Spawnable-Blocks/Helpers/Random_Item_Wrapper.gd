@@ -13,7 +13,9 @@ var rng
 
 
 func _ready():
-	rng = get_parent().rng
+	rng = RngSingleton.rng
+	if len(available_positions) == 0:
+		available_positions = [Vector2(0,0)]
 	if rng and len(available_positions) > 0:
 		
 		#Well, basically sortea el array para tener la chance de mayor valor (no necesariamente la chance mas alta) al final

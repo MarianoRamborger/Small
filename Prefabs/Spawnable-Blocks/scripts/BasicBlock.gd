@@ -5,6 +5,7 @@ export var hazard0RandomizerX = 30
 export var hazard0RandomizerY = 0
 export var difficulty_rating = 0
 export var total_lenght = 175 #El default
+var skin = "Default "
 
 export var enemy0RandomizerX = 30
 export var enemy0RandomizerY = 1
@@ -14,6 +15,8 @@ export var hasEnemy0 = false
 
 
 func _ready():
+	if !rng:
+		rng = RngSingleton.rng
 	if rng and hasHazard0:
 		var haz0 = $Hazard0
 		var haz0x = rng.randi_range(-hazard0RandomizerX,hazard0RandomizerX)

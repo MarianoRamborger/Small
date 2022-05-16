@@ -58,5 +58,10 @@ collision_mask = 5
 visible = false
 polygon = PoolVector2Array( -29, 36, 29, 36, 34, 31, 34, 24, 24, -23, 20, -26, 9, -26, 8, -33, 4, -36, -5, -35, -8, -30, -8, -26, -18, -26, -23, -24, -24, -22, -34, 24, -34, 31 )
 
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( 3.14713e-06, -12.25 )
+scale = Vector2( 3.3, 4.925 )
+
 [connection signal="area_entered" from="WeightBody/Chain" to="WeightBody" method="_on_Area2D_area_entered"]
 [connection signal="area_entered" from="WeightBody/WeightArea" to="WeightBody" method="_on_WeightArea_area_entered"]
+[connection signal="screen_entered" from="VisibilityNotifier2D" to="WeightBody" method="_on_VisibilityNotifier2D_screen_entered"]

@@ -7,7 +7,7 @@ var rng
 
 
 func _ready():
-	rng = get_parent().rng
+	rng = RngSingleton.rng
 	if  rng and chance_to_spawn != 10:
 		if chance_to_spawn < rng.randi_range(0,10):
 			queue_free()

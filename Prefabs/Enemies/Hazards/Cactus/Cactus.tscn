@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 14.2857, 480.714 )
 
-[node name="Area2D" instance=ExtResource( 2 )]
+[node name="Cactus" instance=ExtResource( 2 )]
 collision_layer = 0
 points = 35
 

@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Random_Item_Wrapper.gd" type="Script" id=1]
 [ext_resource path="res://Prefabs/Items/Coin/Coin.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Prefabs/Items/Fuel/Fuel.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Prefabs/Items/Coin/SilCoin.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Prefabs/Items/Coin/GoldCoin.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Items/Health/Health.tscn" type="PackedScene" id=6]
 
 [node name="Random_Item_Wrapper" type="Node2D"]
 script = ExtResource( 1 )
@@ -32,5 +33,9 @@ possible_items = [ {
 }, {
 "Item": ExtResource( 5 ),
 "Name": "GoldenCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 6 ),
+"Name": "Health",
 "Probability": -1
 } ]

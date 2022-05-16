@@ -1,6 +1,7 @@
 extends "res://Prefabs/Enemies/Mobs/FlyingEnemy.gd"
 
 var rng
+var has_chain = true
 
 func _ready():
 		rng = RngSingleton.rng
@@ -14,6 +15,5 @@ func _on_VisibilityNotifier2D_screen_entered():
 
 
 func _on_WeightRaycast_area_entered(area):
-	if area.name == "Player_Hitbox":
-#		$Weight/WeightBody.unchain()
+	if area.name == "Player_Hitbox" and has_chain:
 		get_node("../Weight/WeightBody").unchain()

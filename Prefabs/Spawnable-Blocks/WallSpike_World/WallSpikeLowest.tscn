@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Prefabs/Spawnable-Blocks/scripts/BasicBlock.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Enemies/Spikes_walls/SpikeWall_0.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Challenge_Wrapper.tscn" type="PackedScene" id=4]
+
+[node name="Basic" type="Node2D"]
+script = ExtResource( 1 )
+total_lenght = 700
+
+[node name="Floor" parent="." instance=ExtResource( 2 )]
+
+[node name="Floor2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 175, 0 )
+
+[node name="Floor3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 350, 0 )
+
+[node name="Floor4" parent="." instance=ExtResource( 2 )]
+position = Vector2( 525, 0 )
+
+[node name="Challenge_Wrapper" parent="." instance=ExtResource( 4 )]
+available_positions = PoolVector2Array( 0, 0, 15, 0 )
+
+[node name="SpikeWall" parent="Challenge_Wrapper" instance=ExtResource( 3 )]
+position = Vector2( 283, -93 )

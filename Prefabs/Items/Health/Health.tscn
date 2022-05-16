@@ -1,0 +1,144 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://Prefabs/Items/Health/gemRed.png" type="Texture" id=1]
+[ext_resource path="res://Prefabs/Items/Fuel/star_04.png" type="Texture" id=2]
+[ext_resource path="res://Prefabs/Items/Health/Health.gd" type="Script" id=3]
+[ext_resource path="res://Prefabs/Items/Fuel/fuel_up.wav" type="AudioStream" id=4]
+
+[sub_resource type="SpriteFrames" id=6]
+animations = [ {
+"frames": [ ExtResource( 1 ) ],
+"loop": true,
+"name": "default",
+"speed": 5.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 17, 13 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 300.0
+flag_disable_z = true
+gravity = Vector3( 0, 98, 0 )
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+color = Color( 0.945098, 0.2, 0.105882, 1 )
+
+[sub_resource type="Animation" id=4]
+resource_name = "Default"
+length = 2.0
+step = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -25 ), Vector2( 0, 0 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5, 1, 1.5, 2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, 0 ), Vector2( 0, -10 ), Vector2( 0, 0 ) ]
+}
+
+[sub_resource type="Animation" id=5]
+resource_name = "picked_up"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 0, -30 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Particles2D:emitting")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0, 0.5 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath(".")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.5 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "picked_up"
+} ]
+}
+
+[node name="Node2D" type="Node2D"]
+__meta__ = {
+"_editor_description_": "This needs to be parent, cause si es el area las animations de animationplayer resetean a la posicon global y te salen en cualquier lado"
+}
+
+[node name="Hp (Small)" type="Area2D" parent="."]
+collision_layer = 8
+script = ExtResource( 3 )
+
+[node name="Sprite" type="AnimatedSprite" parent="Hp (Small)"]
+frames = SubResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hp (Small)"]
+shape = SubResource( 1 )
+
+[node name="Particles2D" type="Particles2D" parent="Hp (Small)"]
+position = Vector2( 0, -1.00001 )
+scale = Vector2( 0.1, 0.1 )
+amount = 12
+lifetime = 3.0
+speed_scale = 2.0
+process_material = SubResource( 2 )
+texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Hp (Small)"]
+autoplay = "Default"
+anims/Default = SubResource( 4 )
+anims/picked_up = SubResource( 5 )
+
+[node name="FuelUp" type="AudioStreamPlayer2D" parent="Hp (Small)"]
+stream = ExtResource( 4 )
+volume_db = 5.0
+
+[connection signal="area_entered" from="Hp (Small)" to="Hp (Small)" method="_on_Fuel_Small_area_entered"]

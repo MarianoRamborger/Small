@@ -57,3 +57,10 @@ func _on_InvincibilityTimer_timeout():
 	playerAnimation.play("default")
 	invincible = false
 	parent.hurting = false
+	
+func heal(health):
+	parent.hp += health
+	if parent.hp > parent.max_hp:
+		parent.hp = parent.max_hp
+		
+

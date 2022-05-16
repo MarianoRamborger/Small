@@ -3,6 +3,7 @@ extends KinematicBody2D
 export var SPEED = 225
 export var SPEED_DIF_MOD = 0
 export var GRAVITY = 20
+var gravity_modifier = 0
 const WORLD_LIMIT = 10000 #BAJAR
 const UP = Vector2(0,-1)
 var motion = Vector2(SPEED,0)
@@ -10,6 +11,7 @@ var hurting = false
 
 
 export var hp = 100
+export var max_hp = 100
 export var jump_speed = 50
 export var jump_stamina = 75
 export var max_jump_stamina = 75
@@ -39,6 +41,7 @@ func _physics_process(delta):
 	apply_gravity()
 	handle_movement()
 	jump()
+	descend()
 	animate()
 	set_jetpack_boost()
 	move_and_slide(motion, UP)
@@ -52,10 +55,11 @@ func _physics_process(delta):
 func apply_gravity():
 	if !boosting:
 		if !is_on_floor():
-			motion.y += GRAVITY
+			motion.y += GRAVITY + gravity_modifier
 		else:
 			motion.y = GRAVITY
-
+	else :
+		motion.y += gravity_modifier
 			
 
 func animate():
@@ -94,6 +98,10 @@ func jump():
 		elif jump_stamina <= 0:
 			$AudioJetpack.stop()
 			jetpack_started = false
+	else:
+		if Input.is_action_pressed("Jump") and jetpack_stamina > 0 and falling:
+			jetpack_started = true
+			jump_jetpack()
 		
 		
 
@@ -125,11 +133,13 @@ func jump_jetpack():
 		position.y -= 5
 		if jetpack_started:
 			motion.y -= 18
+			gravity_modifier = 0
 			update_jetpack_stamina(-1)
 			if !$AudioJetpack.playing:
 				$AudioJetpack.play()
 		else:
 			motion.y = -150
+			gravity_modifier = 0
 			jetpack_started = true
 			update_jetpack_stamina(-10)
 			$AudioBoost.play()
@@ -151,16 +161,16 @@ func set_jetpack_boost():
 			boosting = true
 			$AnimatedSprite/Jetpack/JetpackAnimation.play("jetpack_boost")
 			motion.y = 0
-			jetpack_boost_speed = 200
+			jetpack_boost_speed = 250
 			$AudioBoost.play()
 			
-	elif Input.is_action_just_pressed("Left") and jetpack_stamina >= 25:
-			update_jetpack_stamina(-50)
-			boosting = true
-			$AnimatedSprite/Jetpack/JetpackAnimation.play("jetpack_boost_left")
-			motion.y = 0
-			jetpack_boost_speed = -SPEED + -SPEED_DIF_MOD + -200
-			$AudioBoost.play()
+#	elif Input.is_action_just_pressed("Left") and jetpack_stamina >= 25:
+#			update_jetpack_stamina(-50)
+#			boosting = true
+#			$AnimatedSprite/Jetpack/JetpackAnimation.play("jetpack_boost_left")
+#			motion.y = 0
+#			jetpack_boost_speed = -SPEED + -SPEED_DIF_MOD + -200
+#			$AudioBoost.play()
 
 func end_jetpack_boost():
 	$AnimatedSprite/Jetpack/JetpackAnimation.play("default")
@@ -168,12 +178,19 @@ func end_jetpack_boost():
 	jetpack_boost_speed = 0
 	
 
+func descend():
+	if !is_on_floor() and Input.is_action_just_pressed("Down"):
+		gravity_modifier = 80
+		$AnimatedSprite.play("Down")
+	elif is_on_floor():
+		gravity_modifier = 0
+
 func increase_difficulty():
-	if SPEED_DIF_MOD < 500:
-		SPEED_DIF_MOD += 20
+	if SPEED_DIF_MOD < 550:
+		SPEED_DIF_MOD += 15
 
 func increase_world_level(worldLevel):
-	SPEED_DIF_MOD = 0
+	SPEED_DIF_MOD += 20
 
 
 func check_jetpack_stamina_recharger():
@@ -192,5 +209,6 @@ func recharge_jetpack():
 	else:
 		recharging_jetpack = false
 		started_jetpack_recharge = false
+		
 
 

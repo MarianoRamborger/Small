@@ -1,14 +1,10 @@
 extends StaticBody2D
 
-export var type = "mid"
+var skin = "Default"
 
 func _ready():
-	if type == "mid":
-		$AnimatedSprite.play("Mid")
-	elif type == "left":
-		$AnimatedSprite.play("Left")
-	elif type == "right":
-		$AnimatedSprite.play('Right')
+	skin = get_parent().skin
+	$AnimatedSprite.play(skin)
 
 func Despawn():
 	queue_free()

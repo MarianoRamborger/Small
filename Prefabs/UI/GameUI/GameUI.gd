@@ -24,9 +24,14 @@ func set_score(x):
 	$Control/Points.text = str(x)
 	
 	
-func increase_world_level(worldLevel):
+#func increase_world_level(worldLevel):
+#	lvlLabel.visible = true
+#	lvlLabel.text = "LEVEL " + str(worldLevel + 1)
+#	$Control/VboxStage/StageLevelTimer.start()
+	
+func switch_world_type(world_type):
 	lvlLabel.visible = true
-	lvlLabel.text = "LEVEL " + str(worldLevel + 1)
+	lvlLabel.text = world_type + " incoming!"
 	$Control/VboxStage/StageLevelTimer.start()
 
 

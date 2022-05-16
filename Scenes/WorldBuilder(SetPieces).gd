@@ -31,6 +31,7 @@ var canCreate = true
 var rng
 var difficulty_level = 1
 var world_level = -1
+var skin = "Default"
 
 
 
@@ -56,19 +57,17 @@ func increase_difficulty():
 func increase_world_level(worldLevel):
 	world_level = worldLevel
 
+func switch_world_type(world_type):
+	skin = world_type
 
 func create_terrain():
-	
-	
 	var tile = Block_factory.getBlock()
 	var newTile = tile.instance()
 	newTile.rng = rng
+	newTile.skin = skin
 	newTile.position = Vector2(create_at_X,0)
 	get_parent().add_child(newTile)
 	
-	#HANDLE GEM SPAWNS SEPARATELY
-#	if world_level >= 0:
-#		Spawners[0].spawn(newTile, "Ground")
 
 	var chance = clamp(rng.randi_range(0,difficulty_level), 0, 6)
 	

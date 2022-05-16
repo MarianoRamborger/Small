@@ -7,6 +7,7 @@ var rng
 var difficulty = 0
 var world_level = -1
 
+
 #Dentro de un mismo 'Level", la dificultad y velocidad aumentan?
 #Then speed baja al principio del nivel siguiente?
 var blocks = [
@@ -19,22 +20,85 @@ var blocks = [
 		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic.tscn")
 	},
 ]
-var lvl0Blocks = [
-	{
-		name = "DoubleBasic",
+
+
+
+onready var lastBlock = blocks[0]
+
+func _ready():
+		pass
+		
+		
+
+#CAMBIOS
+#USAR ARRAY.SHUFFLE Y DESHACERME DEL INDEX. EL RNG RANDOM TENDRIA QUE SER METIDO POR EL PADRE
+#PONER EL CAMPO "REPEATABLE" A LOS BLOCKS
+func getBlock(strict_difficulty = false ):
+	var type = pick_next_block_type()
+
+	var index = 0
+	var selectedBlock
+
+	while index < len(blocks):
+		
+		if blocks[index]["type"] == type or type == BLOCK_TYPE.ANY:
+			if blocks[index]["difficulty"] == difficulty or (strict_difficulty == false and blocks[index]["difficulty"] < difficulty):
+				if blocks[index]["repeatable"] == true or blocks[index]["prefab"] != lastBlock["prefab"]:
+					selectedBlock = blocks[index]
+					lastBlock = selectedBlock
+					
+					if selectedBlock["type"] == BLOCK_TYPE.WARMUP:
+						warmups_remaining -= 1
+					
+					break
+					
+		index += 1
+	blocks.shuffle()
+	return selectedBlock["prefab"]
+
+
+func pick_next_block_type():
+	if len(blocks) < 3:
+		return BLOCK_TYPE.REST
+	if (lastBlock["type"] == BLOCK_TYPE.CHALLENGE):
+		return BLOCK_TYPE.REST
+	elif (warmups_remaining <= 0 and lastBlock["type"] == BLOCK_TYPE.REST):
+		warmups_remaining = rng.randi_range(2,7)
+		return BLOCK_TYPE.CHALLENGE
+
+	else:
+		 return BLOCK_TYPE.REST if rng.randi_range(0,2) == 0 else BLOCK_TYPE.WARMUP
+		 
+
+
+
+
+#NEW VERSION
+#LA IDEA ES QUE UN TIMER MANEJE EL CAMBIO DE BLOQUES
+#DEL MUNDO. HAYA LIKE 4-5 BLOCKS CON SOME DIFFICULTY
+#MODIFIERS
+#SO FAR:
+#0: DESERT, CACTUS Y PIEDRAS
+#1: WALL SPIKES, IR RAPIDO
+
+var blocks_rest = [
+		{
+		name = "Basic",
 		difficulty = 0,
 		type = BLOCK_TYPE.REST,
 		repeatable = true,
 		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basicx2.tscn")
-	},
-	{
-		name = "Escalator",
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic.tscn")
+		}
+		]
+var blocks_desert = [
+		{
+		name = "Basic",
 		difficulty = 0,
-		type = BLOCK_TYPE.CHALLENGE,
+		type = BLOCK_TYPE.REST,
 		repeatable = true,
 		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Escalator.tscn")
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic.tscn")
 	},
 	{
 		name = "2Basic+Rock",
@@ -65,132 +129,143 @@ var lvl0Blocks = [
 		difficulty = 0,
 		type = BLOCK_TYPE.WARMUP,
 		repeatable = true,
-		floors = 'simple',
 		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Tricactus.tscn")
 	},
-]
-
-var lvl1Blocks = [
-			{
-		name = "Basic4WaySpiketrap",
-		difficulty = 1,
+		{
+		name = "Cactus challenge",
+		difficulty = 0,
 		type = BLOCK_TYPE.CHALLENGE,
 		repeatable = false,
-		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level1/Basic+4waytrap.tscn")
+		prefab = load("res://Prefabs/Spawnable-Blocks/Desert_0/Desert0CactusChallenge.tscn")
 	},
-	{
-		name = "2Basic+SpikeTrap",
-		difficulty = 1,
+			{
+		name = "Cactus Platform",
+		difficulty = 0,
 		type = BLOCK_TYPE.WARMUP,
+		repeatable = false,
+		prefab = load("res://Prefabs/Spawnable-Blocks/Desert_0/DesertPlatform.tscn")
+	},
+]
+
+var blocks_spikes = [
+	{
+		name = "Basic",
+		difficulty = 0,
+		type = BLOCK_TYPE.REST,
 		repeatable = true,
 		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level1/2Basic+SpikeTrap.tscn")
-	},
-]
-
-var lvl2Blocks = [
-	{
-		name = "Basic+Spinner",
-		difficulty = 2,
-		type = BLOCK_TYPE.WARMUP,
-		repeatable = false,
-		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level2/Basic+Spinner.tscn")
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic.tscn")
 	},
 	{
-		name = "DD+CactusRock-Trap",
-		difficulty = 2,
-		type = BLOCK_TYPE.CHALLENGE,
-		repeatable = false,
-		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level1/2DD+CactusRock-Trap.tscn")
-	},
-]
-
-var lvl3Blocks = [
-	{
-		name = "Basic+3Flyers",
-		difficulty = 3,
-		type = BLOCK_TYPE.CHALLENGE,
-		repeatable = false,
-		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level3/Basic+3Flyers.tscn")
-	},
-]
-
-onready var lastBlock = blocks[0]
-
-func _ready():
-		pass
-		
-		
-
-#CAMBIOS
-#USAR ARRAY.SHUFFLE Y DESHACERME DEL INDEX. EL RNG RANDOM TENDRIA QUE SER METIDO POR EL PADRE
-#PONER EL CAMPO "REPEATABLE" A LOS BLOCKS
-func getBlock(strict_difficulty = false ):
-	var type = pick_next_block_type()
-	var index = 0
-	var selectedBlock
-	while index < len(blocks):
-		
-		if blocks[index]["type"] == type or type == BLOCK_TYPE.ANY:
-			if blocks[index]["difficulty"] == difficulty or (strict_difficulty == false and blocks[index]["difficulty"] < difficulty):
-				if blocks[index]["repeatable"] == true or blocks[index]["prefab"] != lastBlock["prefab"]:
-					selectedBlock = blocks[index]
-					lastBlock = selectedBlock
-					
-					if selectedBlock["type"] == BLOCK_TYPE.WARMUP:
-						warmups_remaining -= 1
-					
-					break
-					
-		index += 1
-	blocks.shuffle()
-	return selectedBlock["prefab"]
-
-
-func pick_next_block_type():
-	if world_level == -1:
-		return BLOCK_TYPE.REST
-	if (lastBlock["type"] == BLOCK_TYPE.CHALLENGE):
-		return BLOCK_TYPE.REST
-	elif (warmups_remaining <= 0 and lastBlock["type"] == BLOCK_TYPE.REST):
-		warmups_remaining = rng.randi_range(2,7)
-		return BLOCK_TYPE.CHALLENGE
-
-	else:
-		 return BLOCK_TYPE.REST if rng.randi_range(0,2) == 0 else BLOCK_TYPE.WARMUP
-		 
-
-func increase_difficulty():
-	difficulty += 1
-	if difficulty == 1 and world_level == 0:
-		print("ADDED")
-		blocks.append({
-		name = "PassDown", difficulty = 0, type = BLOCK_TYPE.WARMUP, repeatable = false,
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/PassDownSpikes.tscn")
-		})
-	elif difficulty == 3 and world_level == 0:
-		blocks.append({
-		name = "Bombardier Fly",
+		name = "Lowest_Spike",
 		difficulty = 0,
 		type = BLOCK_TYPE.WARMUP,
 		repeatable = true,
 		floors = 'simple',
-		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/BombardierFly.tscn")
-	})
+		prefab = load("res://Prefabs/Spawnable-Blocks/WallSpike_World/WallSpikeLowest.tscn")
+	},
+	{
+		name = "Second_Lowest_Spike",
+		difficulty = 0,
+		type = BLOCK_TYPE.WARMUP,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/WallSpike_World/SecondLowest.tscn")
+	},
+		{
+		name = "One-n-half-spike",
+		difficulty = 0,
+		type = BLOCK_TYPE.WARMUP,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/WallSpikes_0/ActualSecond.tscn")
+	},
+		{
+		name = "Curve-ball-spike",
+		difficulty = 0,
+		type = BLOCK_TYPE.WARMUP,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/WallSpikes_0/ThirdSpike.tscn")
+	},
 
-func increase_world_level(worldLevel):
-	world_level = worldLevel
-	if world_level == 0:
-		blocks = lvl0Blocks
-	if world_level == 1:
-		blocks.append_array(lvl1Blocks)
-		
-#	if difficulty == 2:
-#		blocks.append_array(lvl2Blocks)
-#	if difficulty == 3:
-#		blocks.append_array(lvl3Blocks)
+	{
+		name = "DoubleSpike",
+		difficulty = 0,
+		type = BLOCK_TYPE.WARMUP,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/WallSpike_World/Wall_Spike_double_1.tscn")
+	},
+		{
+		name = "Placeholder",
+		difficulty = 0,
+		type = BLOCK_TYPE.CHALLENGE,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/WallSpike_World/Wall_Spike_double_1.tscn")
+	},	
+]
+var blocks_castle = [
+	
+	{
+		name = "Basic",
+		difficulty = 0,
+		type = BLOCK_TYPE.REST,
+		repeatable = true,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Level0/Basic.tscn")
+	},
+	{
+		name = "Spinner",
+		difficulty = 0,
+		type = BLOCK_TYPE.CHALLENGE,
+		repeatable = false,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Castle_0/Basic+Spinner.tscn")
+	},
+	{
+		name = "Spinner Platform",
+		difficulty = 0,
+		type = BLOCK_TYPE.WARMUP,
+		repeatable = false,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Castle_0/DoublePlatformSpinner.tscn")
+	},
+		{
+		name = "Spinner LongJump",
+		difficulty = 0,
+		type = BLOCK_TYPE.WARMUP,
+		repeatable = false,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Castle_0/SpinnerLongjump.tscn")
+	},
+	{
+		name = "Bombardier Fly",
+		difficulty = 0,
+		type = BLOCK_TYPE.CHALLENGE,
+		repeatable = false,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Castle_0/BombardierFly.tscn")
+	},
+	{
+		name = "Castle Spiketrap",
+		difficulty = 0,
+		type = BLOCK_TYPE.WARMUP,
+		repeatable = false,
+		floors = 'simple',
+		prefab = load("res://Prefabs/Spawnable-Blocks/Castle_0/CastleSpikeTrap.tscn")
+	}
+	
+]
+
+func switch_world_type(world_type):
+
+	match(world_type):
+		"Desert":
+			blocks = blocks_desert
+		"Spikes":
+			blocks = blocks_spikes
+		"Castle":
+			blocks = blocks_castle
 

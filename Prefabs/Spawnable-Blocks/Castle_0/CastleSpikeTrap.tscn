@@ -1,0 +1,117 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Prefabs/Spawnable-Blocks/scripts/BasicBlock.gd" type="Script" id=1]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Item_Wrapper.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Floors/Halfs/HalfFloor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Items/Fuel/Fuel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Enemies/Hazards/Spikes/Spikes.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Prefabs/Items/Coin/Coin.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Prefabs/Items/Coin/GoldCoin.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Prefabs/Items/Coin/SilCoin.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Prefabs/Items/Health/Health.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Random_Item_Wrapper.tscn" type="PackedScene" id=11]
+
+[node name="2Basic+Spiketrap" type="Node2D"]
+script = ExtResource( 1 )
+hazard0RandomizerX = 0
+total_lenght = 525
+enemy0RandomizerX = 0
+enemy0RandomizerY = 0
+
+[node name="Floor" parent="." instance=ExtResource( 6 )]
+
+[node name="Spikes" parent="Floor" instance=ExtResource( 5 )]
+position = Vector2( -18.4, -52.8 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Spikes2" parent="Floor" instance=ExtResource( 5 )]
+position = Vector2( 17.2, -52.8 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Floor3" parent="." instance=ExtResource( 6 )]
+position = Vector2( 350, 0 )
+
+[node name="Floor2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 175, 0 )
+
+[node name="Spikes3" parent="Floor2" instance=ExtResource( 5 )]
+position = Vector2( -18.4, -52.8 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Spikes4" parent="Floor2" instance=ExtResource( 5 )]
+position = Vector2( 16.8, -52.8 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Spikes5" parent="Floor2" instance=ExtResource( 5 )]
+position = Vector2( -34.4, -52.8 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Spikes6" parent="Floor2" instance=ExtResource( 5 )]
+position = Vector2( -73.6, -52.8 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Spikes7" parent="Floor2" instance=ExtResource( 5 )]
+position = Vector2( -0.399994, -52.8 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Spikes8" parent="Floor2" instance=ExtResource( 5 )]
+position = Vector2( -82.8, -52.8 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="Spikes9" parent="Floor2" instance=ExtResource( 5 )]
+position = Vector2( 9.6, -52.8 )
+scale = Vector2( 0.5, 0.5 )
+
+[node name="HalfFloor" parent="." instance=ExtResource( 3 )]
+position = Vector2( 87, -299 )
+skin = "Castle"
+
+[node name="Item_Wrapper" parent="." instance=ExtResource( 2 )]
+
+[node name="Coin" parent="Item_Wrapper" instance=ExtResource( 7 )]
+position = Vector2( -50, -220 )
+
+[node name="Item_Wrapper2" parent="." instance=ExtResource( 2 )]
+
+[node name="Coin" parent="Item_Wrapper2" instance=ExtResource( 7 )]
+position = Vector2( 10, -220 )
+
+[node name="Item_Wrapper3" parent="." instance=ExtResource( 2 )]
+
+[node name="Node2D" parent="Item_Wrapper3" instance=ExtResource( 4 )]
+position = Vector2( 70, -220 )
+
+[node name="Item_Wrapper4" parent="." instance=ExtResource( 2 )]
+
+[node name="Coin" parent="Item_Wrapper4" instance=ExtResource( 7 )]
+position = Vector2( 130, -220 )
+
+[node name="Item_Wrapper5" parent="." instance=ExtResource( 2 )]
+
+[node name="Coin" parent="Item_Wrapper5" instance=ExtResource( 7 )]
+position = Vector2( 190, -219 )
+
+[node name="Random_Item_Wrapper" parent="." instance=ExtResource( 11 )]
+position = Vector2( 86, -428 )
+possible_items = [ {
+"Item": ExtResource( 7 ),
+"Name": "BronzeCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 4 ),
+"Name": "GreenGem",
+"Probability": -1
+}, {
+"Item": ExtResource( 9 ),
+"Name": "SilverCoin",
+"Probability": 3
+}, {
+"Item": ExtResource( 8 ),
+"Name": "GoldenCoin",
+"Probability": 4
+}, {
+"Item": ExtResource( 10 ),
+"Name": "Health",
+"Probability": -1
+} ]

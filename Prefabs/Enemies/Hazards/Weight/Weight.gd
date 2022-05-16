@@ -4,13 +4,14 @@ export var chained = true
 var speed = 0
 var gravity = 600
 const UP = Vector2(0,-1)
-
+var on_screen = false
 
 
 
 func unchain():
 	chained = false
 	$Chain.visible = false
+	get_node("../../Fly").has_chain = false
 
 
 func _physics_process(delta):
@@ -25,6 +26,8 @@ func _physics_process(delta):
 func _on_Area2D_area_entered(area):
 	if chained:
 		unchain()
+		if !on_screen:
+			Despawn()
 		
 		
 
@@ -36,7 +39,11 @@ func _on_WeightArea_area_entered(area):
 		area.hurt()
 
 
-func despawn():
+func Despawn():
 	queue_free()
 
 
+
+
+func _on_VisibilityNotifier2D_screen_entered():
+	on_screen = true

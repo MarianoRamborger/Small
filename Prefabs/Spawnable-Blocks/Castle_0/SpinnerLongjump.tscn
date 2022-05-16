@@ -1,0 +1,102 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Random_Item_Wrapper.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Prefabs/Items/Health/Health.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Item_Wrapper.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Prefabs/Items/Fuel/Fuel.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Prefabs/Items/Coin/Coin.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Prefabs/Floors/Halfs/HalfFloor.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Prefabs/Enemies/Mobs/Circuit_Spinner/CircuitSpinner.tscn" type="PackedScene" id=7]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/Helpers/Challenge_Wrapper.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Prefabs/Items/Coin/GoldCoin.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Prefabs/Floors/Basic/BasicFloor.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Prefabs/Items/Coin/SilCoin.tscn" type="PackedScene" id=11]
+[ext_resource path="res://Prefabs/Spawnable-Blocks/scripts/BasicBlock.gd" type="Script" id=12]
+
+[node name="Basic" type="Node2D"]
+script = ExtResource( 12 )
+total_lenght = 1050
+
+[node name="Floor" parent="." instance=ExtResource( 10 )]
+
+[node name="Floor2" parent="." instance=ExtResource( 10 )]
+position = Vector2( 175, 0 )
+
+[node name="Floor3" parent="." instance=ExtResource( 10 )]
+position = Vector2( 350, 0 )
+
+[node name="Floor4" parent="." instance=ExtResource( 10 )]
+position = Vector2( 525, 0 )
+
+[node name="Floor5" parent="." instance=ExtResource( 10 )]
+position = Vector2( 700, 0 )
+
+[node name="Floor6" parent="." instance=ExtResource( 10 )]
+position = Vector2( 875, 0 )
+
+[node name="Challenge_Wrapper" parent="." instance=ExtResource( 8 )]
+
+[node name="HalfFloor" parent="Challenge_Wrapper" instance=ExtResource( 6 )]
+position = Vector2( -35, -318 )
+scale = Vector2( 1.5, 2 )
+skin = "Castle"
+
+[node name="HalfFloor2" parent="Challenge_Wrapper" instance=ExtResource( 6 )]
+position = Vector2( 735, -318 )
+scale = Vector2( 1.5, 2 )
+skin = "Castle"
+
+[node name="Item_Wrapper" parent="Challenge_Wrapper" instance=ExtResource( 3 )]
+position = Vector2( 140, -600 )
+
+[node name="Coin" parent="Challenge_Wrapper/Item_Wrapper" instance=ExtResource( 5 )]
+
+[node name="Item_Wrapper2" parent="Challenge_Wrapper" instance=ExtResource( 3 )]
+position = Vector2( 280, -600 )
+
+[node name="SilverCoin" parent="Challenge_Wrapper/Item_Wrapper2" instance=ExtResource( 11 )]
+
+[node name="Item_Wrapper3" parent="Challenge_Wrapper" instance=ExtResource( 3 )]
+position = Vector2( 420, -600 )
+
+[node name="GoldCoin" parent="Challenge_Wrapper/Item_Wrapper3" instance=ExtResource( 9 )]
+
+[node name="Random_Item_Wrapper" parent="Challenge_Wrapper" instance=ExtResource( 1 )]
+position = Vector2( 560, -600 )
+possible_items = [ {
+"Item": ExtResource( 5 ),
+"Name": "BronzeCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 4 ),
+"Name": "GreenGem",
+"Probability": 1
+}, {
+"Item": ExtResource( 11 ),
+"Name": "SilverCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 9 ),
+"Name": "GoldenCoin",
+"Probability": -1
+}, {
+"Item": ExtResource( 2 ),
+"Name": "Health",
+"Probability": 3
+} ]
+
+[node name="CircuitSpinner" parent="." instance=ExtResource( 7 )]
+position = Vector2( 350, -128 )
+orientation = "Horizontal"
+speed = 700
+limitUp = -300
+limitLeft = -300
+limitRight = 300
+
+[node name="Challenge_Wrapper2" parent="." instance=ExtResource( 8 )]
+
+[node name="CircuitSpinner2" parent="Challenge_Wrapper2" instance=ExtResource( 7 )]
+position = Vector2( 349, -500 )
+speed = 450
+limitLeft = -300
+limitRight = 300
